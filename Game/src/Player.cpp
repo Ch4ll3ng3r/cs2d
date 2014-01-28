@@ -9,11 +9,11 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
     m_fViewDirection = 0.f;
     m_fOldViewDirection = 0.f;
     m_fMovementDirection = 0.f;
-    m_fMaxVelocity = 0.8f;
+    m_fMaxVelocity = 2.0f;
     m_fCurVelocity = 0.f;
     m_fVelocityIncrease = 0.10f;
     m_fVelocityDecrease = 0.01f;
-    m_fRotationVelocity = 0.05f;
+    m_fRotationVelocity = 0.01f;
     m_pSprite = nullptr;
     m_pSprite = pSprite;
     m_View.setCenter (m_fPos);
@@ -34,13 +34,12 @@ sf::View& CPlayer::GetView ()
     return m_View;
 }
 
-void CPlayer::Rotate (float fCoefficient)
+void CPlayer::Rotate (float fCoefficient, unsigned int uiElapsed)
 {
     m_fOldViewDirection = m_fViewDirection;
-    m_fViewDirection += m_fRotationVelocity * fCoefficient;
+    m_fViewDirection += m_fRotationVelocity * fCoefficient * static_cast<float> (uiElapsed);
     if (m_fViewDirection >= 360.f)
         m_fViewDirection -= 0.f;
-    m_pSprite->setRotation (m_fViewDirection);
 }
 
 sf::Vector2f CPlayer::GetPos ()
@@ -55,22 +54,22 @@ void CPlayer::SetMovementDirection (float fDeviation)
         m_fMovementDirection -= 0.f;
 }
 
-void CPlayer::DecreaseVelocity ()
+void CPlayer::DecreaseVelocity (unsigned int uiElapsed)
 {
     if (m_fCurVelocity > 0.f)
     {
-        m_fCurVelocity -= m_fVelocityDecrease;
+        m_fCurVelocity -= m_fVelocityDecrease * static_cast<float> (uiElapsed);
         if (m_fCurVelocity < 0.f)
             m_fCurVelocity = 0.f;
     }
 
 }
 
-void CPlayer::IncreaseVelocity ()
+void CPlayer::IncreaseVelocity (unsigned int uiElapsed)
 {
     if (m_fCurVelocity < m_fMaxVelocity)
     {
-        m_fCurVelocity += m_fVelocityIncrease;
+        m_fCurVelocity += m_fVelocityIncrease * static_cast<float> (uiElapsed);
         if (m_fCurVelocity > m_fMaxVelocity)
             m_fCurVelocity = m_fMaxVelocity;
     }
@@ -83,6 +82,7 @@ void CPlayer::Move ()
     m_View.move (m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)), m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)));
     m_fPos.x = m_View.getCenter ().x;
     m_fPos.y = m_View.getCenter ().y;
+    m_pSprite->setRotation (m_fViewDirection);
     m_pSprite->setPosition (m_fPos);
 }
 
@@ -101,6 +101,7 @@ void CPlayer::ResetMove ()
 void CPlayer::ResetRotation ()
 {
     m_fViewDirection = m_fOldViewDirection;
+    m_pSprite->setRotation (m_fViewDirection);
 }
 
 bool CPlayer::CheckCollision (sf::Vector2f fSpot)

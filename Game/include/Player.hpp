@@ -12,9 +12,9 @@ class CPlayer
     public:
         CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize);
         ~CPlayer();
-        void DecreaseVelocity ();
-        void IncreaseVelocity ();
-        void Rotate (float fCoefficient);
+        void DecreaseVelocity (unsigned int uiElapsed);
+        void IncreaseVelocity (unsigned int uiElapsed);
+        void Rotate (float fCoefficient, unsigned int uiElapsed);
         void SetMovementDirection (float fDeviation);
         sf::View& GetView ();
         sf::Vector2f GetPos ();

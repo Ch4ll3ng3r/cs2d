@@ -21,6 +21,9 @@ CGameState::~CGameState ()
     {
         SAFE_DELETE (*j);
     }
+
+    m_pWindow = nullptr;
+    m_pCurGameStateType = nullptr;
 }
 
 void CGameState::FillSpriteList (vector<sf::Sprite*> *vpSprites)

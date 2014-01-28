@@ -12,8 +12,8 @@ class CMenu : public CGameState
                sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
         ~CMenu ();
         void ProcessWindowEvents ();
-        void ProcessKeyboardEvents ();
-        void ProcessMouseEvents ();
+        void ProcessKeyboardEvents (unsigned int uiElapsed);
+        void ProcessMouseEvents (unsigned int uiElapsed);
         void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts);
 
     private:

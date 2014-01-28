@@ -12,15 +12,25 @@ CGame::CGame ()
     LoadTextures ();
     LoadFonts ();
     InitGameStates ();
+
+    // Init Time
+    m_uiElapsedTimeEventhandling = 0;
+    m_uiLastEventhandlingTime = 0;
+    m_uiLastRenderingTime = 0;
 }
 
 void CGame::Run ()
 {
     while ((m_pWindow->isOpen ()) && (m_CurGameStateType != EXIT))
     {
-        m_Clock.restart ();
+        m_uiElapsedTimeEventhandling = m_Clock.getElapsedTime ().asMilliseconds () - m_uiLastEventhandlingTime;
+        m_uiLastEventhandlingTime = m_Clock.getElapsedTime ().asMilliseconds ();
         Update ();
-        Render ();
+        if (m_Clock.getElapsedTime ().asMilliseconds () - m_uiLastRenderingTime > 8)
+        {
+            Render ();
+            m_uiLastRenderingTime = m_Clock.getElapsedTime ().asMilliseconds ();
+        }
         sf::sleep (sf::milliseconds (1));
     }
 }
@@ -115,8 +125,8 @@ void CGame::Update ()
     m_pCurGameState->ProcessWindowEvents ();
     if (m_CurGameStateType != PAUSE)
     {
-        m_pCurGameState->ProcessKeyboardEvents ();
-        m_pCurGameState->ProcessMouseEvents ();
+        m_pCurGameState->ProcessKeyboardEvents (m_uiElapsedTimeEventhandling);
+        m_pCurGameState->ProcessMouseEvents (m_uiElapsedTimeEventhandling);
         if (m_CurGameStateType == MULTIPLAYER)
         {
             m_pMultiplayer->CheckCollisions ();

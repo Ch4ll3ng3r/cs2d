@@ -38,6 +38,9 @@ class CGame
         EGameStateType m_CurGameStateType;
         EGameStateType m_LastGameStateType;
         sf::View m_DefaultView;
+        unsigned int m_uiLastRenderingTime;
+        unsigned int m_uiElapsedTimeEventhandling;
+        unsigned int m_uiLastEventhandlingTime;
 };
 
 #endif // GAME_HPP_INCLUDED

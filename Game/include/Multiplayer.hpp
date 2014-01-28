@@ -12,8 +12,8 @@ class CMultiplayer : public CGameState
         CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
         ~CMultiplayer ();
         void ProcessWindowEvents ();
-        void ProcessKeyboardEvents ();
-        void ProcessMouseEvents ();
+        void ProcessKeyboardEvents (unsigned int uiElapsed);
+        void ProcessMouseEvents (unsigned int uiElapsed);
         void ProcessGameEvents ();
         void CheckCollisions ();
         void UpdateView ();

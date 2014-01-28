@@ -1,19 +1,27 @@
 #include "../include/Collision.hpp"
 
-CCollision::CCollision ()
+CCollision::CCollision (CPlayer *pPlayer)
 : CEvent (COLLISION)
 {
-    //ctor
+    m_pPlayer = pPlayer;
 }
 
 CCollision::~CCollision()
 {
-    //dtor
+    m_pPlayer = nullptr;
 }
 
 void CCollision::Handle ()
 {
-
+    if (m_pPlayer->GetCurVelocity () > 0.f)
+    {
+        m_pPlayer->ResetMove ();
+        while (m_pPlayer->GetCurVelocity () > 0.f)
+        {
+            m_pPlayer->DecreaseVelocity (200);
+        }
+    }
+    m_pPlayer->ResetRotation ();
 }
 
 void CCollision::Ignore ()

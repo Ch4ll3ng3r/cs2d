@@ -86,56 +86,64 @@ void CMultiplayer::ProcessWindowEvents ()
     }
 }
 
-void CMultiplayer::ProcessKeyboardEvents ()
+void CMultiplayer::ProcessKeyboardEvents (unsigned int uiElapsed)
 {
-    m_pPlayer->DecreaseVelocity ();
+    m_pPlayer->DecreaseVelocity (uiElapsed);
     if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
     {
         m_pPlayer->SetMovementDirection (0.f);
-        m_pPlayer->IncreaseVelocity ();
+        m_pPlayer->IncreaseVelocity (uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
     {
         m_pPlayer->SetMovementDirection (180.f);
-        m_pPlayer->IncreaseVelocity ();
+        m_pPlayer->IncreaseVelocity (uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
     {
         m_pPlayer->SetMovementDirection (90.f);
-        m_pPlayer->IncreaseVelocity ();
+        m_pPlayer->IncreaseVelocity (uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::A))
     {
         m_pPlayer->SetMovementDirection (270.f);
-        m_pPlayer->IncreaseVelocity ();
+        m_pPlayer->IncreaseVelocity (uiElapsed);
     }
 
-    if (m_pPlayer->GetCurVelocity () > 0.f)
+    /*if (m_pPlayer->GetCurVelocity () > 0.f)
     {
         CMovement *pMovement = nullptr;
         pMovement = new CMovement (m_pPlayer);
         m_vpPendingEvents.push_back (pMovement);
         pMovement = nullptr;
-    }
+    }*/
 }
 
-void CMultiplayer::ProcessMouseEvents ()
+void CMultiplayer::ProcessMouseEvents (unsigned int uiElapsed)
 {
     if (sf::Mouse::getPosition (*m_pWindow).x != 960)
-        m_pPlayer->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960));
+    {
+        m_pPlayer->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960), uiElapsed);
+        /*if (m_pPlayer->GetCurVelocity () == 0.f)
+        {
+            CMovement *pMovement = nullptr;
+            pMovement = new CMovement (m_pPlayer);
+            m_vpPendingEvents.push_back (pMovement);
+            pMovement = nullptr;
+        }*/
+    }
     sf::Mouse::setPosition (sf::Vector2i (960, 540), *m_pWindow);
 }
 
 void CMultiplayer::CheckCollisions ()
 {
     // collision check
-    /*bool bCollided = false;
-    for (int i = 0; i < 100; i++)
+    bool bCollided = false;
+    for (int i = 0; i < 100 /*|| bCollided*/; i++)
     {
-        for (int j = 0; j < 100; j++)
+        for (int j = 0; j < 100 /*|| bCollided*/; j++)
         {
-            bool bIsStable = m_pMap->GetBlock (i, j)->IsStable ();
-            if (bIsStable)
+            if (m_pMap->GetBlock (i, j)->IsStable ())
             {
                 sf::Vector2f fPos = m_pPlayer->GetPos ();
                 float fDirection = m_pPlayer->GetView ().getRotation ();
@@ -151,8 +159,7 @@ void CMultiplayer::CheckCollisions ()
                     fDirection += 90.f;
                     fPos.x += 60.f * cos (DEG_TO_RAD(fDirection));
                     fPos.y += 60.f * sin (DEG_TO_RAD(fDirection));
-                    bool bCheckCollision = m_pMap->GetBlock (i, j)->CheckCollision (fPos);
-                    if (bCheckCollision)
+                    if (m_pMap->GetBlock (i, j)->CheckCollision (fPos))
                         bCollided = true;
                 }
             }
@@ -162,16 +169,15 @@ void CMultiplayer::CheckCollisions ()
     // consequences
     if (bCollided)
     {
-        if (m_pPlayer->GetCurVelocity () > 0.f)
-        {
-            m_pPlayer->ResetMove ();
-            while (m_pPlayer->GetCurVelocity () > 0.f)
-            {
-                m_pPlayer->IncreaseVelocity ();
-            }
-        }
-        m_pPlayer->ResetRotation ();
-    }*/
+        CCollision *pCollision = nullptr;
+        pCollision = new CCollision (m_pPlayer);
+        m_vpPendingEvents.push_back (pCollision);
+        pCollision = nullptr;
+    }
+    CMovement *pMovement = nullptr;
+    pMovement = new CMovement (m_pPlayer);
+    m_vpPendingEvents.push_back (pMovement);
+    pMovement = nullptr;
 }
 
 void CMultiplayer::UpdateView ()

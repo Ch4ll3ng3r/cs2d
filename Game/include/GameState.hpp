@@ -13,8 +13,8 @@ class CGameState
         CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
         virtual ~CGameState();
         virtual void ProcessWindowEvents () = 0;
-        virtual void ProcessKeyboardEvents () = 0;
-        virtual void ProcessMouseEvents () = 0;
+        virtual void ProcessKeyboardEvents (unsigned int uiElapsed) = 0;
+        virtual void ProcessMouseEvents (unsigned int uiElapsed) = 0;
         virtual void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts) = 0;
 
     protected:
