@@ -129,7 +129,7 @@ void CGame::Update ()
         m_pCurGameState->ProcessMouseEvents (m_uiElapsedTimeEventhandling);
         if (m_CurGameStateType == MULTIPLAYER)
         {
-            m_pMultiplayer->CheckCollisions ();
+            m_pMultiplayer->CheckCollisions (m_uiElapsedTimeEventhandling);
             m_pMultiplayer->ProcessGameEvents ();
             m_pMultiplayer->UpdateView ();
         }

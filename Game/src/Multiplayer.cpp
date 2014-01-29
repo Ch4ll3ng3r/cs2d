@@ -109,14 +109,6 @@ void CMultiplayer::ProcessKeyboardEvents (unsigned int uiElapsed)
         m_pPlayer->SetMovementDirection (270.f);
         m_pPlayer->IncreaseVelocity (uiElapsed);
     }
-
-    /*if (m_pPlayer->GetCurVelocity () > 0.f)
-    {
-        CMovement *pMovement = nullptr;
-        pMovement = new CMovement (m_pPlayer);
-        m_vpPendingEvents.push_back (pMovement);
-        pMovement = nullptr;
-    }*/
 }
 
 void CMultiplayer::ProcessMouseEvents (unsigned int uiElapsed)
@@ -135,49 +127,55 @@ void CMultiplayer::ProcessMouseEvents (unsigned int uiElapsed)
     sf::Mouse::setPosition (sf::Vector2i (960, 540), *m_pWindow);
 }
 
-void CMultiplayer::CheckCollisions ()
+void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
 {
     // collision check
-    bool bCollided = false;
-    for (int i = 0; i < 100 /*|| bCollided*/; i++)
+    if (m_pPlayer->RequestsMovement ())
     {
-        for (int j = 0; j < 100 /*|| bCollided*/; j++)
+        bool bCollided = false;
+        for (int i = 0; i < 100; i++)
         {
-            if (m_pMap->GetBlock (i, j)->IsStable ())
+            for (int j = 0; j < 100; j++)
             {
-                sf::Vector2f fPos = m_pPlayer->GetPos ();
-                float fDirection = m_pPlayer->GetView ().getRotation ();
-                fDirection -= 90.f;
-                fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-                fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-                fDirection += 90.f;
-                fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-                fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-
-                for (int k = 0; k < 4; k++)
+                if (m_pMap->GetBlock (i, j)->IsStable ())
                 {
+                    sf::Vector2f fPos = m_pPlayer->GetPos ();
+                    float fDirection = m_pPlayer->GetViewDirection ();
+                    fDirection -= 90.f;
+                    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
+                    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
                     fDirection += 90.f;
-                    fPos.x += 60.f * cos (DEG_TO_RAD(fDirection));
-                    fPos.y += 60.f * sin (DEG_TO_RAD(fDirection));
-                    if (m_pMap->GetBlock (i, j)->CheckCollision (fPos))
-                        bCollided = true;
+                    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
+                    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        fDirection += 90.f;
+                        for (int l = 0; l < 60; l++)
+                        {
+                            fPos.x += 1.f * cos (DEG_TO_RAD(fDirection));
+                            fPos.y += 1.f * sin (DEG_TO_RAD(fDirection));
+                            if (m_pMap->GetBlock (i, j)->CheckCollision (fPos))
+                                bCollided = true;
+                        }
+                    }
                 }
             }
         }
-    }
 
-    // consequences
-    if (bCollided)
-    {
-        CCollision *pCollision = nullptr;
-        pCollision = new CCollision (m_pPlayer);
-        m_vpPendingEvents.push_back (pCollision);
-        pCollision = nullptr;
+        // consequences
+        if (bCollided)
+        {
+            CCollision *pCollision = nullptr;
+            pCollision = new CCollision (m_pPlayer);
+            m_vpPendingEvents.push_back (pCollision);
+            pCollision = nullptr;
+        }
+        CMovement *pMovement = nullptr;
+        pMovement = new CMovement (m_pPlayer, uiElapsed);
+        m_vpPendingEvents.push_back (pMovement);
+        pMovement = nullptr;
     }
-    CMovement *pMovement = nullptr;
-    pMovement = new CMovement (m_pPlayer);
-    m_vpPendingEvents.push_back (pMovement);
-    pMovement = nullptr;
 }
 
 void CMultiplayer::UpdateView ()

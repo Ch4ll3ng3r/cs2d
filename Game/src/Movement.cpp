@@ -1,9 +1,10 @@
 #include "../include/Movement.hpp"
 
-CMovement::CMovement (CPlayer *pPlayer)
+CMovement::CMovement (CPlayer *pPlayer, unsigned int uiElapsed)
 : CEvent (MOVEMENT)
 {
     m_pPlayer = pPlayer;
+    m_uiElapsed = uiElapsed;
 }
 
 CMovement::~CMovement()
@@ -13,7 +14,7 @@ CMovement::~CMovement()
 
 void CMovement::Handle ()
 {
-    m_pPlayer->Move ();
+    m_pPlayer->Move (m_uiElapsed);
 }
 
 void CMovement::Ignore ()

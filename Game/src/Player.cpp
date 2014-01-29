@@ -9,11 +9,12 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
     m_fViewDirection = 0.f;
     m_fOldViewDirection = 0.f;
     m_fMovementDirection = 0.f;
-    m_fMaxVelocity = 2.0f;
+    m_fMaxVelocity = 0.2f;
     m_fCurVelocity = 0.f;
-    m_fVelocityIncrease = 0.10f;
-    m_fVelocityDecrease = 0.01f;
+    m_fVelocityIncrease = 0.01f;
+    m_fVelocityDecrease = 0.001f;
     m_fRotationVelocity = 0.01f;
+    m_bRequestsMovement = false;
     m_pSprite = nullptr;
     m_pSprite = pSprite;
     m_View.setCenter (m_fPos);
@@ -37,6 +38,7 @@ sf::View& CPlayer::GetView ()
 void CPlayer::Rotate (float fCoefficient, unsigned int uiElapsed)
 {
     m_fOldViewDirection = m_fViewDirection;
+    m_bRequestsMovement = true;
     m_fViewDirection += m_fRotationVelocity * fCoefficient * static_cast<float> (uiElapsed);
     if (m_fViewDirection >= 360.f)
         m_fViewDirection -= 0.f;
@@ -61,6 +63,8 @@ void CPlayer::DecreaseVelocity (unsigned int uiElapsed)
         m_fCurVelocity -= m_fVelocityDecrease * static_cast<float> (uiElapsed);
         if (m_fCurVelocity < 0.f)
             m_fCurVelocity = 0.f;
+        else if (m_fCurVelocity > 0.f)
+            m_bRequestsMovement = true;
     }
 
 }
@@ -76,10 +80,12 @@ void CPlayer::IncreaseVelocity (unsigned int uiElapsed)
 
 }
 
-void CPlayer::Move ()
+void CPlayer::Move (unsigned int uiElapsed)
 {
     m_fOldPos = m_fPos;
-    m_View.move (m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)), m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)));
+    m_bRequestsMovement = false;
+    m_View.move (m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed),
+                 m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed));
     m_fPos.x = m_View.getCenter ().x;
     m_fPos.y = m_View.getCenter ().y;
     m_pSprite->setRotation (m_fViewDirection);
@@ -129,4 +135,14 @@ bool CPlayer::CheckCollision (sf::Vector2f fSpot)
         }
     }
     return false;
+}
+
+bool CPlayer::RequestsMovement ()
+{
+    return m_bRequestsMovement;
+}
+
+float CPlayer::GetViewDirection ()
+{
+    return m_fViewDirection;
 }

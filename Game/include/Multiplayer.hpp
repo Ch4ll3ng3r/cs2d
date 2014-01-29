@@ -15,7 +15,7 @@ class CMultiplayer : public CGameState
         void ProcessKeyboardEvents (unsigned int uiElapsed);
         void ProcessMouseEvents (unsigned int uiElapsed);
         void ProcessGameEvents ();
-        void CheckCollisions ();
+        void CheckCollisions (unsigned int uiElapsed);
         void UpdateView ();
         void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts);
 

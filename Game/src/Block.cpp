@@ -53,10 +53,10 @@ void CBlock::SetTexture (sf::Texture &rTexture)
 
 bool CBlock::CheckCollision (sf::Vector2f fSpot)
 {
-    return ((fSpot.x <= m_fPos.x + 30.f) &&
-           (fSpot.x >= m_fPos.x - 30.f) &&
-           (fSpot.y <= m_fPos.y + 30.f) &&
-           (fSpot.y >= m_fPos.y - 30.f));
+    return ((fSpot.x >= m_fPos.x - 30.f) &&
+            (fSpot.x <= m_fPos.x + 30.f) &&
+            (fSpot.y >= m_fPos.y - 30.f) &&
+            (fSpot.y <= m_fPos.y + 30.f));
 }
 
 bool CBlock::IsStable ()

@@ -18,11 +18,13 @@ class CPlayer
         void SetMovementDirection (float fDeviation);
         sf::View& GetView ();
         sf::Vector2f GetPos ();
-        void Move ();
-        float GetCurVelocity ();
+        void Move (unsigned int uiElapsed);
         void ResetMove ();
         void ResetRotation ();
+        float GetCurVelocity ();
+        float GetViewDirection ();
         bool CheckCollision (sf::Vector2f fSpot);
+        bool RequestsMovement ();
 
     private:
         sf::Vector2f m_fPos;
@@ -37,6 +39,7 @@ class CPlayer
         float m_fRotationVelocity;
         float m_fVelocityDecrease;
         float m_fVelocityIncrease;
+        bool m_bRequestsMovement;
 };
 
 #endif // PLAYER_HPP_INCLUDED
