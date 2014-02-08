@@ -14,22 +14,31 @@ CGame::CGame ()
     InitGameStates ();
 
     // Init Time
-    m_uiElapsedTimeEventhandling = 0;
-    m_uiLastEventhandlingTime = 0;
-    m_uiLastRenderingTime = 0;
+    m_uiElapsedTime = 0;
+    m_uiLastUpdateTime = 0;
+    m_uiMaxFramesPerSecond = 120;
+    m_uiTickRate = 128;
+    m_uiLastPacketSendTime = 0;
+    m_uiNow = 0;
 }
 
 void CGame::Run ()
 {
     while ((m_pWindow->isOpen ()) && (m_CurGameStateType != EXIT))
     {
-        m_uiElapsedTimeEventhandling = m_Clock.getElapsedTime ().asMilliseconds () - m_uiLastEventhandlingTime;
-        m_uiLastEventhandlingTime = m_Clock.getElapsedTime ().asMilliseconds ();
-        Update ();
-        if (m_Clock.getElapsedTime ().asMilliseconds () - m_uiLastRenderingTime > 8)
+        m_uiNow = m_Clock.getElapsedTime ().asMilliseconds ();
+        ReceivePackets ();
+        if (m_uiNow - m_uiLastUpdateTime > 1000 / m_uiMaxFramesPerSecond)
         {
+            m_uiElapsedTime = m_uiNow - m_uiLastUpdateTime;
+            Update ();
             Render ();
-            m_uiLastRenderingTime = m_Clock.getElapsedTime ().asMilliseconds ();
+            m_uiLastUpdateTime = m_uiNow;
+        }
+        if (m_uiNow - m_uiLastPacketSendTime > 1000 / m_uiTickRate)
+        {
+            SendPackets();
+            m_uiLastPacketSendTime = m_uiNow;
         }
         sf::sleep (sf::milliseconds (1));
     }
@@ -125,11 +134,11 @@ void CGame::Update ()
     m_pCurGameState->ProcessWindowEvents ();
     if (m_CurGameStateType != PAUSE)
     {
-        m_pCurGameState->ProcessKeyboardEvents (m_uiElapsedTimeEventhandling);
-        m_pCurGameState->ProcessMouseEvents (m_uiElapsedTimeEventhandling);
+        m_pCurGameState->ProcessKeyboardEvents (m_uiElapsedTime);
+        m_pCurGameState->ProcessMouseEvents (m_uiElapsedTime);
         if (m_CurGameStateType == MULTIPLAYER)
         {
-            m_pMultiplayer->CheckCollisions (m_uiElapsedTimeEventhandling);
+            m_pMultiplayer->CheckCollisions (m_uiElapsedTime);
             m_pMultiplayer->ProcessGameEvents ();
             m_pMultiplayer->UpdateView ();
         }
@@ -269,4 +278,16 @@ void CGame::LoadSoundBuffers ()
         cout << "failed to load" << strPath << endl;
     buffer = make_pair ("ak", _buffer);
     m_SoundBuffers.insert (buffer);
+}
+
+void CGame::ReceivePackets ()
+{
+    if (m_pMultiplayer->ConnectionEstablished ())
+        m_pMultiplayer->ReceivePackets (m_uiNow);
+}
+
+void CGame::SendPackets ()
+{
+    if (m_pMultiplayer->ConnectionEstablished ())
+        m_pMultiplayer->SendPackets (m_uiNow);
 }

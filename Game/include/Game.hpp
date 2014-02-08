@@ -18,6 +18,8 @@ class CGame
         void LoadSoundBuffers ();
         void Render ();
         void Update ();
+        void SendPackets ();
+        void ReceivePackets ();
         void InitGameStates ();
         void UpdateGameState ();
         void ClearSpriteList ();
@@ -38,9 +40,12 @@ class CGame
         EGameStateType m_CurGameStateType;
         EGameStateType m_LastGameStateType;
         sf::View m_DefaultView;
-        unsigned int m_uiLastRenderingTime;
-        unsigned int m_uiElapsedTimeEventhandling;
-        unsigned int m_uiLastEventhandlingTime;
+        unsigned int m_uiNow;
+        unsigned int m_uiMaxFramesPerSecond;
+        unsigned int m_uiElapsedTime;
+        unsigned int m_uiLastUpdateTime;
+        unsigned int m_uiTickRate;
+        unsigned int m_uiLastPacketSendTime;
 };
 
 #endif // GAME_HPP_INCLUDED

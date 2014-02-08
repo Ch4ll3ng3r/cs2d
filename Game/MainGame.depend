@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1390133362 source:f:\codeblocks\projects\maingame\main.cpp
+1390135389 source:f:\codeblocks\projects\maingame\main.cpp
 	"include/Game.hpp"
-	<SFML/Audio.hpp>
 
-1389205048 f:\codeblocks\projects\maingame\include\game.hpp
+1391773453 f:\codeblocks\projects\maingame\include\game.hpp
 	"Pause.hpp"
 	"Menu.hpp"
 	"Multiplayer.hpp"
 
-1387053868 f:\codeblocks\projects\maingame\include\player.hpp
+1391784610 f:\codeblocks\projects\maingame\include\player.hpp
 	<SFML/Graphics.hpp>
+	<SFML/Network.hpp>
 	<cmath>
 
 1365229832 f:\c++ libs\sfml\include\sfml\graphics.hpp
@@ -362,28 +362,29 @@
 
 1387718582 f:\codeblocks\projects\maingame\include\blocktype.hpp
 
-1388754967 source:f:\codeblocks\projects\maingame\src\block.cpp
+1391014518 source:f:\codeblocks\projects\maingame\src\block.cpp
 	"../include/Block.hpp"
 
-1389982004 source:f:\codeblocks\projects\maingame\src\game.cpp
+1391870449 source:f:\codeblocks\projects\maingame\src\game.cpp
 	"../include/Game.hpp"
 
 1387718059 source:f:\codeblocks\projects\maingame\src\map.cpp
 	"../include/Map.hpp"
 
-1387053568 source:f:\codeblocks\projects\maingame\src\player.cpp
+1391784667 source:f:\codeblocks\projects\maingame\src\player.cpp
 	"../include/Player.hpp"
 
-1389208056 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
+1390927015 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
 	"../include/GameState.hpp"
 
-1389206125 source:f:\codeblocks\projects\maingame\src\pause.cpp
+1390928592 source:f:\codeblocks\projects\maingame\src\pause.cpp
 	"../include/Pause.hpp"
 
-1389206351 f:\codeblocks\projects\maingame\include\pause.hpp
+1390928592 f:\codeblocks\projects\maingame\include\pause.hpp
 	"GameState.hpp"
 
-1389528521 f:\codeblocks\projects\maingame\include\gamestate.hpp
+1390928592 f:\codeblocks\projects\maingame\include\gamestate.hpp
+	<SFML/Audio.hpp>
 	"Player.hpp"
 	"Map.hpp"
 	"SafeDelete.hpp"
@@ -391,20 +392,21 @@
 
 1388757953 f:\codeblocks\projects\maingame\include\gamestatetype.hpp
 
-1389980322 f:\codeblocks\projects\maingame\include\menu.hpp
+1390928591 f:\codeblocks\projects\maingame\include\menu.hpp
 	"GameState.hpp"
 	"Button.hpp"
 
-1389982079 f:\codeblocks\projects\maingame\include\multiplayer.hpp
+1391861594 f:\codeblocks\projects\maingame\include\multiplayer.hpp
 	"GameState.hpp"
 	"Collision.hpp"
 	"Movement.hpp"
 	"Shot.hpp"
+	"PacketType.hpp"
 
-1389980887 source:f:\codeblocks\projects\maingame\src\menu.cpp
+1390928591 source:f:\codeblocks\projects\maingame\src\menu.cpp
 	"../include/Menu.hpp"
 
-1389982365 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
+1391870806 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
 	"../include/Multiplayer.hpp"
 
 1389207885 f:\codeblocks\projects\maingame\include\button.hpp
@@ -414,11 +416,12 @@
 1389529593 source:f:\codeblocks\projects\maingame\src\button.cpp
 	"../include/Button.hpp"
 
-1389979647 source:f:\codeblocks\projects\maingame\src\collision.cpp
+1390936007 source:f:\codeblocks\projects\maingame\src\collision.cpp
 	"../include/Collision.hpp"
 
-1389979542 f:\codeblocks\projects\maingame\include\collision.hpp
+1390935797 f:\codeblocks\projects\maingame\include\collision.hpp
 	"Event.hpp"
+	<iostream>
 
 1389981554 f:\codeblocks\projects\maingame\include\event.hpp
 	"EventType.hpp"
@@ -429,10 +432,10 @@
 1389979077 source:f:\codeblocks\projects\maingame\src\event.cpp
 	"../include/Event.hpp"
 
-1389981477 source:f:\codeblocks\projects\maingame\src\movement.cpp
+1391016789 source:f:\codeblocks\projects\maingame\src\movement.cpp
 	"../include/Movement.hpp"
 
-1389982255 f:\codeblocks\projects\maingame\include\movement.hpp
+1391016777 f:\codeblocks\projects\maingame\include\movement.hpp
 	"Event.hpp"
 
 1389980145 source:f:\codeblocks\projects\maingame\src\shot.cpp
@@ -500,4 +503,77 @@
 	<SFML/Audio/Export.hpp>
 	<SFML/System/Thread.hpp>
 	<vector>
+
+1365229832 f:\c++ libs\sfml\include\sfml\network.hpp
+	<SFML/System.hpp>
+	<SFML/Network/Ftp.hpp>
+	<SFML/Network/Http.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/Packet.hpp>
+	<SFML/Network/SocketSelector.hpp>
+	<SFML/Network/TcpListener.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/Network/UdpSocket.hpp>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\ftp.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\export.hpp
+	<SFML/Config.hpp>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\tcpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<SFML/System/Time.hpp>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\socket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/SocketHandle.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<vector>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\sockethandle.hpp
+	<SFML/Config.hpp>
+	<basetsd.h>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\http.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/IpAddress.hpp>
+	<SFML/Network/TcpSocket.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<map>
+	<string>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\ipaddress.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+	<istream>
+	<ostream>
+	<string>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\packet.hpp
+	<SFML/Network/Export.hpp>
+	<string>
+	<vector>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\socketselector.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\tcplistener.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+
+1365229833 f:\c++ libs\sfml\include\sfml\network\udpsocket.hpp
+	<SFML/Network/Export.hpp>
+	<SFML/Network/Socket.hpp>
+	<vector>
+
+1391774454 f:\codeblocks\projects\maingame\include\packettype.hpp
 

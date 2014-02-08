@@ -5,6 +5,7 @@
 #define DEG_TO_RAD(x) M_PI / 180 * x
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include <cmath>
 
 class CPlayer
@@ -16,6 +17,8 @@ class CPlayer
         void IncreaseVelocity (unsigned int uiElapsed);
         void Rotate (float fCoefficient, unsigned int uiElapsed);
         void SetMovementDirection (float fDeviation);
+        void SetViewDirection (float fDirection);
+        void SetPos (sf::Vector2f fPos);
         sf::View& GetView ();
         sf::Vector2f GetPos ();
         void Move (unsigned int uiElapsed);

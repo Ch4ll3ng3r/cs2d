@@ -13,6 +13,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
     }
 
     // init map
+    m_pMap = nullptr;
     m_pMap = new CMap (&m_vpSprites);
     if (m_pMap->Load ("test"))
     {
@@ -20,7 +21,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
         m_pMap->UpdateBlockTextures (pTextures);
     }
     else
-        cout << "failed to load map";
+        cout << "[ERROR] failed to load map";
 
     // init player
     sf::Sprite *pSprite = nullptr;
@@ -29,8 +30,39 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
     sf::Vector2f fViewSize;
     fViewSize.x = static_cast<float> (m_pWindow->getSize ().x);
     fViewSize.y = static_cast<float> (m_pWindow->getSize ().y);
-    m_pPlayer = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize);
+    m_pPlayerLocal = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize);
     pSprite = nullptr;
+    pSprite = new sf::Sprite (pTextures->at ("Player"));
+    m_vpSprites.push_back (pSprite);
+    m_pPlayerConnected = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize);
+    pSprite = nullptr;
+
+    // connect to server
+    cout << "ip: ";
+    cin >> m_Ip;
+    m_usRemotePort = 53000;
+    m_usLocalPort = m_usRemotePort + 1;
+    if (m_TcpSocket.connect (m_Ip, m_usRemotePort, sf::seconds (1)) == sf::Socket::Done)
+    {
+        cout << "connection to " << m_Ip << " established" << endl;
+        m_TcpSocket.setBlocking (false);
+        if (m_UdpSocket.bind (m_usLocalPort) == sf::Socket::Done)
+        {
+            m_UdpSocket.setBlocking (false);
+            m_bConnected = true;
+            cout << "bound UdpSocket on port " << m_usLocalPort << endl;
+        }
+        else
+        {
+            m_bConnected = false;
+            cout << "[ERROR] failed to bind UdpSocket on port " << m_usLocalPort << endl;
+        }
+    }
+    else
+    {
+        m_bConnected = false;
+        cout << "[ERROR] failed to connect to " << m_Ip << endl;
+    }
 }
 
 CMultiplayer::~CMultiplayer ()
@@ -41,7 +73,8 @@ CMultiplayer::~CMultiplayer ()
         SAFE_DELETE (*i);
     }
     SAFE_DELETE (m_pMap);
-    SAFE_DELETE (m_pPlayer);
+    SAFE_DELETE (m_pPlayerLocal);
+    SAFE_DELETE (m_pPlayerConnected);
 }
 
 void CMultiplayer::ProcessWindowEvents ()
@@ -88,49 +121,40 @@ void CMultiplayer::ProcessWindowEvents ()
 
 void CMultiplayer::ProcessKeyboardEvents (unsigned int uiElapsed)
 {
-    m_pPlayer->DecreaseVelocity (uiElapsed);
-    if (sf::Keyboard::isKeyPressed (sf::Keyboard::W))
+    m_pPlayerLocal->DecreaseVelocity (uiElapsed);
+    if (sf::Keyboard::isKeyPressed (sf::Keyboard::E))
     {
-        m_pPlayer->SetMovementDirection (0.f);
-        m_pPlayer->IncreaseVelocity (uiElapsed);
-    }
-    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
-    {
-        m_pPlayer->SetMovementDirection (180.f);
-        m_pPlayer->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->SetMovementDirection (0.f);
+        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
     {
-        m_pPlayer->SetMovementDirection (90.f);
-        m_pPlayer->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->SetMovementDirection (180.f);
+        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
     }
-    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::A))
+    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::F))
     {
-        m_pPlayer->SetMovementDirection (270.f);
-        m_pPlayer->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->SetMovementDirection (90.f);
+        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
+    }
+    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
+    {
+        m_pPlayerLocal->SetMovementDirection (270.f);
+        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
     }
 }
 
 void CMultiplayer::ProcessMouseEvents (unsigned int uiElapsed)
 {
     if (sf::Mouse::getPosition (*m_pWindow).x != 960)
-    {
-        m_pPlayer->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960), uiElapsed);
-        /*if (m_pPlayer->GetCurVelocity () == 0.f)
-        {
-            CMovement *pMovement = nullptr;
-            pMovement = new CMovement (m_pPlayer);
-            m_vpPendingEvents.push_back (pMovement);
-            pMovement = nullptr;
-        }*/
-    }
+        m_pPlayerLocal->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960), uiElapsed);
     sf::Mouse::setPosition (sf::Vector2i (960, 540), *m_pWindow);
 }
 
 void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
 {
     // collision check
-    if (m_pPlayer->RequestsMovement ())
+    if (m_pPlayerLocal->RequestsMovement ())
     {
         bool bCollided = false;
         for (int i = 0; i < 100; i++)
@@ -139,8 +163,8 @@ void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
             {
                 if (m_pMap->GetBlock (i, j)->IsStable ())
                 {
-                    sf::Vector2f fPos = m_pPlayer->GetPos ();
-                    float fDirection = m_pPlayer->GetViewDirection ();
+                    sf::Vector2f fPos = m_pPlayerLocal->GetPos ();
+                    float fDirection = m_pPlayerLocal->GetViewDirection ();
                     fDirection -= 90.f;
                     fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
                     fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
@@ -167,20 +191,23 @@ void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
         if (bCollided)
         {
             CCollision *pCollision = nullptr;
-            pCollision = new CCollision (m_pPlayer);
+            pCollision = new CCollision (m_pPlayerLocal);
             m_vpPendingEvents.push_back (pCollision);
             pCollision = nullptr;
         }
-        CMovement *pMovement = nullptr;
-        pMovement = new CMovement (m_pPlayer, uiElapsed);
-        m_vpPendingEvents.push_back (pMovement);
-        pMovement = nullptr;
+        else
+        {
+            CMovement *pMovement = nullptr;
+            pMovement = new CMovement (m_pPlayerLocal, uiElapsed);
+            m_vpPendingEvents.push_back (pMovement);
+            pMovement = nullptr;
+        }
     }
 }
 
 void CMultiplayer::UpdateView ()
 {
-    m_pWindow->setView (m_pPlayer->GetView ());
+    m_pWindow->setView (m_pPlayerLocal->GetView ());
 }
 
 void CMultiplayer::Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts)
@@ -198,4 +225,53 @@ void CMultiplayer::ProcessGameEvents ()
         SAFE_DELETE (*i);
     }
     m_vpPendingEvents.clear ();
+}
+
+void CMultiplayer::SendPackets (unsigned int uiNow)
+{
+    sf::Packet packet;
+    packet << m_pPlayerLocal->GetPos ().x << m_pPlayerLocal->GetPos ().y << m_pPlayerLocal->GetViewDirection ();
+    if (m_UdpSocket.send (packet, m_Ip, m_usRemotePort) == sf::Socket::Done) {}
+    /*packet << PING << uiNow;
+    if (m_TcpSocket.send (packet) != sf::Socket::Done) {}*/
+}
+
+void CMultiplayer::ReceivePackets (unsigned int uiNow)
+{
+    sf::Packet packet;
+    sf::Vector2f fPos;
+    float fDirection = 0.f;
+    if (m_UdpSocket.receive (packet, m_Ip, m_usRemotePort) == sf::Socket::Done)
+    {
+        if (packet >> fPos.x >> fPos.y >> fDirection)
+        {
+            m_pPlayerConnected->SetViewDirection (fDirection);
+            m_pPlayerConnected->SetPos (fPos);
+        }
+    }
+    /*if (m_TcpSocket.receive (packet) == sf::Socket::Done)
+    {
+        if (packet >> m_CurPacketType)
+        {
+            switch (m_CurPacketType)
+            {
+                case PING:
+                {
+                    unsigned int uiPacketSendTime = 0;
+                    if (packet >> uiPacketSendTime)
+                        cout << "ping: " << uiNow - uiPacketSendTime << endl;
+                } break;
+                case SHUTDOWN:
+                {
+                    m_bConnected = false;
+                } break;
+                default: {}
+            }
+        }
+    }*/
+}
+
+bool CMultiplayer::ConnectionEstablished ()
+{
+    return m_bConnected;
 }

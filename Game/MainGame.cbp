@@ -66,6 +66,7 @@
 		<Unit filename="include/Menu.hpp" />
 		<Unit filename="include/Movement.hpp" />
 		<Unit filename="include/Multiplayer.hpp" />
+		<Unit filename="include/PacketType.hpp" />
 		<Unit filename="include/Pause.hpp" />
 		<Unit filename="include/Player.hpp" />
 		<Unit filename="include/SafeDelete.hpp" />

@@ -146,3 +146,26 @@ float CPlayer::GetViewDirection ()
 {
     return m_fViewDirection;
 }
+
+void CPlayer::SetPos (sf::Vector2f fPos)
+{
+    m_fPos = fPos;
+    m_pSprite->setPosition (m_fPos);
+}
+
+void CPlayer::SetViewDirection (float fDirection)
+{
+    m_fViewDirection = fDirection;
+    m_pSprite->setRotation (m_fViewDirection);
+}
+
+// overload of packet operator
+/*sf::Packet& operator << (sf::Packet& packet, const CPlayer& Player)
+{
+    return packet << Player.GetPos ().x << Player.GetPos.y () << Player.GetViewDirection ();
+}
+
+sf::Packet& operator >> (sf::Packet& packet, const CPlayer& Player)
+{
+    return packet >> Player.m_fPos.x >> Player.m_fPos.y >> Player.m_fViewDirection;
+}*/
