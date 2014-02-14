@@ -22,6 +22,7 @@ class CPlayer
         sf::View& GetView ();
         sf::Vector2f GetPos ();
         void Move (unsigned int uiElapsed);
+        void UpdateSpriteAndView ();
         void ResetMove ();
         void ResetRotation ();
         float GetCurVelocity ();

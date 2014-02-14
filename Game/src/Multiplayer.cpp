@@ -156,6 +156,7 @@ void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
     // collision check
     if (m_pPlayerLocal->RequestsMovement ())
     {
+        m_pPlayerLocal->Move (uiElapsed);
         bool bCollided = false;
         for (int i = 0; i < 100; i++)
         {
@@ -198,7 +199,7 @@ void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
         else
         {
             CMovement *pMovement = nullptr;
-            pMovement = new CMovement (m_pPlayerLocal, uiElapsed);
+            pMovement = new CMovement (m_pPlayerLocal);
             m_vpPendingEvents.push_back (pMovement);
             pMovement = nullptr;
         }
@@ -231,7 +232,7 @@ void CMultiplayer::SendPackets (unsigned int uiNow)
 {
     sf::Packet packet;
     packet << m_pPlayerLocal->GetPos ().x << m_pPlayerLocal->GetPos ().y << m_pPlayerLocal->GetViewDirection ();
-    if (m_UdpSocket.send (packet, m_Ip, m_usRemotePort) == sf::Socket::Done) {}
+    if (m_TcpSocket.send (packet) == sf::Socket::Done) {}
     /*packet << PING << uiNow;
     if (m_TcpSocket.send (packet) != sf::Socket::Done) {}*/
 }
@@ -241,7 +242,7 @@ void CMultiplayer::ReceivePackets (unsigned int uiNow)
     sf::Packet packet;
     sf::Vector2f fPos;
     float fDirection = 0.f;
-    if (m_UdpSocket.receive (packet, m_Ip, m_usRemotePort) == sf::Socket::Done)
+    if (m_TcpSocket.receive (packet) == sf::Socket::Done)
     {
         if (packet >> fPos.x >> fPos.y >> fDirection)
         {

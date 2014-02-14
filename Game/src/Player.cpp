@@ -84,10 +84,13 @@ void CPlayer::Move (unsigned int uiElapsed)
 {
     m_fOldPos = m_fPos;
     m_bRequestsMovement = false;
-    m_View.move (m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed),
-                 m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed));
-    m_fPos.x = m_View.getCenter ().x;
-    m_fPos.y = m_View.getCenter ().y;
+    m_fPos.x += m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed),
+    m_fPos.y += m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed);
+}
+
+void CPlayer::UpdateSpriteAndView ()
+{
+    m_View.setCenter (m_fPos);
     m_pSprite->setRotation (m_fViewDirection);
     m_pSprite->setPosition (m_fPos);
 }
