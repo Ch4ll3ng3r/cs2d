@@ -37,6 +37,7 @@ class CGame
         CPause* m_pPause;
         CMultiplayer* m_pMultiplayer;
         CMenu* m_pMenu;
+        CLogfile *m_pLogfile;
         EGameStateType m_CurGameStateType;
         EGameStateType m_LastGameStateType;
         sf::View m_DefaultView;

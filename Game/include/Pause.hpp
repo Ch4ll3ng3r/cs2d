@@ -6,7 +6,7 @@
 class CPause : public CGameState
 {
     public:
-        CPause (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
+        CPause (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         void SetGameStateTypeBeforePause (EGameStateType GameStateTypeBeforePause);
         void ProcessWindowEvents ();
         void ProcessKeyboardEvents (unsigned int uiElapsed);

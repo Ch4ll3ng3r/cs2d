@@ -1,8 +1,8 @@
 #include "../include/Menu.hpp"
 
 CMenu::CMenu (map<string, sf::Texture> *pTextures, map<string, sf::Font> *pFonts,
-               sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType)
-: CGameState (pWindow, pCurGameStateType)
+               sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile)
+: CGameState (pWindow, pCurGameStateType, pLogfile)
 {
     m_pButtonExit = nullptr;
     m_pButtonPlay = nullptr;

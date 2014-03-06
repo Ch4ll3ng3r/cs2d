@@ -9,7 +9,7 @@ class CMenu : public CGameState
 {
     public:
         CMenu (map<string, sf::Texture> *pTextures, map<string, sf::Font> *pFonts,
-               sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
+               sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         ~CMenu ();
         void ProcessWindowEvents ();
         void ProcessKeyboardEvents (unsigned int uiElapsed);

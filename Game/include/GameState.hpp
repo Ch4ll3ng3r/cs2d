@@ -6,11 +6,12 @@
 #include "Map.hpp"
 #include "SafeDelete.hpp"
 #include "GameStateType.hpp"
+#include "Logfile.hpp"
 
 class CGameState
 {
     public:
-        CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
+        CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         virtual ~CGameState();
         virtual void ProcessWindowEvents () = 0;
         virtual void ProcessKeyboardEvents (unsigned int uiElapsed) = 0;
@@ -23,6 +24,7 @@ class CGameState
         vector<sf::Sprite*> m_vpSprites;
         vector<sf::Text*> m_vpTexts;
         sf::RenderWindow *m_pWindow;
+        CLogfile *m_pLogfile;
         EGameStateType *m_pCurGameStateType;
 };
 

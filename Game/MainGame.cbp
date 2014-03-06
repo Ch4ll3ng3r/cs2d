@@ -62,11 +62,11 @@
 		<Unit filename="include/Game.hpp" />
 		<Unit filename="include/GameState.hpp" />
 		<Unit filename="include/GameStateType.hpp" />
+		<Unit filename="include/Logfile.hpp" />
 		<Unit filename="include/Map.hpp" />
 		<Unit filename="include/Menu.hpp" />
 		<Unit filename="include/Movement.hpp" />
 		<Unit filename="include/Multiplayer.hpp" />
-		<Unit filename="include/PacketType.hpp" />
 		<Unit filename="include/Pause.hpp" />
 		<Unit filename="include/Player.hpp" />
 		<Unit filename="include/SafeDelete.hpp" />
@@ -78,6 +78,7 @@
 		<Unit filename="src/Event.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/GameState.cpp" />
+		<Unit filename="src/Logfile.cpp" />
 		<Unit filename="src/Map.cpp" />
 		<Unit filename="src/Menu.cpp" />
 		<Unit filename="src/Movement.cpp" />

@@ -2,15 +2,20 @@
 
 CGame::CGame ()
 {
-
     m_pWindow = nullptr;
+    m_pLogfile = nullptr;
     m_CurGameStateType = MENU;
     m_LastGameStateType = MENU;
     m_pWindow = new sf::RenderWindow (sf::VideoMode::getDesktopMode (), "M41N G4M3", sf::Style::Fullscreen);
     m_DefaultView.setCenter (m_pWindow->getView ().getCenter ());
     m_DefaultView.setSize (m_pWindow->getView ().getSize ());
+    m_pLogfile = new CLogfile ("log");
+    cout << "starting game ..." << endl;
+    m_pLogfile->Write ("starting game ...");
     LoadTextures ();
+    m_pLogfile->Write ("textures loaded");
     LoadFonts ();
+    m_pLogfile->Write ("fonts loaded");
     InitGameStates ();
 
     // Init Time
@@ -46,6 +51,9 @@ void CGame::Run ()
 
 CGame::~CGame ()
 {
+    cout << "exiting game ..." << endl;
+    m_pLogfile->Write ("exiting game ...");
+
     // close window, if opened
     if (m_pWindow->isOpen ())
         m_pWindow->close ();
@@ -69,6 +77,7 @@ CGame::~CGame ()
     SAFE_DELETE (m_pMenu);
     SAFE_DELETE (m_pPause);
     SAFE_DELETE (m_pWindow);
+    SAFE_DELETE (m_pLogfile);
     //int h = 0;
     //cin >> h;
 }
@@ -175,9 +184,9 @@ void CGame::InitGameStates ()
     m_pMultiplayer = nullptr;
     m_pMenu = nullptr;
     m_pPause = nullptr;
-    m_pMultiplayer = new CMultiplayer (&m_Textures, m_pWindow, &m_CurGameStateType);
-    m_pMenu = new CMenu (&m_Textures, &m_Fonts, m_pWindow, &m_CurGameStateType);
-    m_pPause = new CPause (m_pWindow, &m_CurGameStateType);
+    m_pMultiplayer = new CMultiplayer (&m_Textures, m_pWindow, &m_CurGameStateType, m_pLogfile);
+    m_pMenu = new CMenu (&m_Textures, &m_Fonts, m_pWindow, &m_CurGameStateType, m_pLogfile);
+    m_pPause = new CPause (m_pWindow, &m_CurGameStateType, m_pLogfile);
     m_pCurGameState = GetGameState (m_CurGameStateType);
     m_pCurGameState->Prepare (&m_vpSprites, &m_vpTexts);
 }

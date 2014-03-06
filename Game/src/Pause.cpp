@@ -1,7 +1,7 @@
 #include "../include/Pause.hpp"
 
-CPause::CPause (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType)
-: CGameState (pWindow, pCurGameStateType)
+CPause::CPause (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile)
+: CGameState (pWindow, pCurGameStateType, pLogfile)
 {
     // nothing
 }

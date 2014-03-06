@@ -162,6 +162,15 @@ void CPlayer::SetViewDirection (float fDirection)
     m_pSprite->setRotation (m_fViewDirection);
 }
 
+/*void CPlayer::Shoot (vector<CBullet*> *vpBullets, vector<sf::Sprite*> *vpSprites, unsigned int uiNow)
+{
+    if (m_pCurrentWeapon->IsShotAvailable (uiNow))
+    {
+        m_pWeapon->SetPos ()
+        m_pWeapon->Shoot (vpBullets, vpSprites, m_fDirection, m_strName);
+    }
+}*/
+
 // overload of packet operator
 /*sf::Packet& operator << (sf::Packet& packet, const CPlayer& Player)
 {

@@ -1,9 +1,10 @@
 #include "../include/GameState.hpp"
 
-CGameState::CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType)
+CGameState::CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile)
 {
     m_pWindow = pWindow;
     m_pCurGameStateType = pCurGameStateType;
+    m_pLogfile = pLogfile;
 }
 
 CGameState::~CGameState ()
@@ -24,6 +25,7 @@ CGameState::~CGameState ()
 
     m_pWindow = nullptr;
     m_pCurGameStateType = nullptr;
+    m_pLogfile = nullptr;
 }
 
 void CGameState::FillSpriteList (vector<sf::Sprite*> *vpSprites)

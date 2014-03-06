@@ -4,14 +4,13 @@
 #define M_PI 3.141592
 #define DEG_TO_RAD(x) M_PI / 180 * x
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
 #include <cmath>
+#include "Weapon.hpp"
 
 class CPlayer
 {
     public:
-        CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize);
+        CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize/*, CWeapon *pWeapon*/);
         ~CPlayer();
         void DecreaseVelocity (unsigned int uiElapsed);
         void IncreaseVelocity (unsigned int uiElapsed);
@@ -35,6 +34,7 @@ class CPlayer
         sf::Vector2f m_fOldPos;
         sf::Sprite *m_pSprite;
         sf::View m_View;
+        //CWeapon *m_pWeapon;
         float m_fViewDirection;
         float m_fOldViewDirection;
         float m_fMovementDirection;

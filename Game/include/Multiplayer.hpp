@@ -5,12 +5,12 @@
 #include "Collision.hpp"
 #include "Movement.hpp"
 #include "Shot.hpp"
-#include "PacketType.hpp"
+#include <SFML/Network.hpp>
 
 class CMultiplayer : public CGameState
 {
     public:
-        CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType);
+        CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         ~CMultiplayer ();
         void ProcessWindowEvents ();
         void ProcessKeyboardEvents (unsigned int uiElapsed);
@@ -34,7 +34,7 @@ class CMultiplayer : public CGameState
         unsigned short m_usLocalPort;
         unsigned short m_usRemotePort;
         bool m_bConnected;
-        EPacketType m_CurPacketType;
+        bool m_bOffline;
 };
 
 #endif // MULTIPLAYER_HPP_INCLUDED

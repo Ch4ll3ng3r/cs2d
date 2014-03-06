@@ -1,7 +1,7 @@
 #include "../include/Multiplayer.hpp"
 
-CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType)
-: CGameState (pWindow, pCurGameStateType)
+CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile)
+: CGameState (pWindow, pCurGameStateType, pLogfile)
 {
     // block sprites
     for (int i = 0; i < 10000; i++)
@@ -17,11 +17,14 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
     m_pMap = new CMap (&m_vpSprites);
     if (m_pMap->Load ("test"))
     {
-        cout << "map successfully loaded" << endl;
+        m_pLogfile->Write ("map loaded");
         m_pMap->UpdateBlockTextures (pTextures);
     }
     else
+    {
         cout << "[ERROR] failed to load map";
+        m_pLogfile->Write ("[ERROR] failed to load map");
+    }
 
     // init player
     sf::Sprite *pSprite = nullptr;
@@ -40,28 +43,32 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
     // connect to server
     cout << "ip: ";
     cin >> m_Ip;
-    m_usRemotePort = 53000;
-    m_usLocalPort = m_usRemotePort + 1;
-    if (m_TcpSocket.connect (m_Ip, m_usRemotePort, sf::seconds (1)) == sf::Socket::Done)
+    if (m_Ip == "0.0.0.0")
     {
-        cout << "connection to " << m_Ip << " established" << endl;
-        m_TcpSocket.setBlocking (false);
-        if (m_UdpSocket.bind (m_usLocalPort) == sf::Socket::Done)
+        m_bOffline = true;
+        m_bConnected = false;
+        cout << "starting in offline mode" << endl;
+        m_pLogfile->Write ("starting in offline mode");
+    }
+    else
+        m_bOffline = false;
+    if (!m_bOffline)
+    {
+        m_usRemotePort = 53000;
+        m_usLocalPort = m_TcpSocket.getLocalPort ();
+        if (m_TcpSocket.connect (m_Ip, m_usRemotePort, sf::seconds (1)) == sf::Socket::Done)
         {
-            m_UdpSocket.setBlocking (false);
+            cout << "connection to " << m_Ip << " established" << endl;
+            m_pLogfile->Write ("connection to " + m_Ip.toString () + "established");
+            m_TcpSocket.setBlocking (false);
             m_bConnected = true;
-            cout << "bound UdpSocket on port " << m_usLocalPort << endl;
         }
         else
         {
             m_bConnected = false;
-            cout << "[ERROR] failed to bind UdpSocket on port " << m_usLocalPort << endl;
+            cout << "[ERROR] failed to connect to " << m_Ip << endl;
+            m_pLogfile->Write ("[ERROR] failed to connect to " + m_Ip.toString ());
         }
-    }
-    else
-    {
-        m_bConnected = false;
-        cout << "[ERROR] failed to connect to " << m_Ip << endl;
     }
 }
 
@@ -232,7 +239,7 @@ void CMultiplayer::SendPackets (unsigned int uiNow)
 {
     sf::Packet packet;
     packet << m_pPlayerLocal->GetPos ().x << m_pPlayerLocal->GetPos ().y << m_pPlayerLocal->GetViewDirection ();
-    if (m_TcpSocket.send (packet) == sf::Socket::Done) {}
+    if (m_TcpSocket.send (packet) != sf::Socket::Done) {}
     /*packet << PING << uiNow;
     if (m_TcpSocket.send (packet) != sf::Socket::Done) {}*/
 }

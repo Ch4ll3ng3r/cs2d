@@ -2,15 +2,14 @@
 1390135389 source:f:\codeblocks\projects\maingame\main.cpp
 	"include/Game.hpp"
 
-1391773453 f:\codeblocks\projects\maingame\include\game.hpp
+1394037424 f:\codeblocks\projects\maingame\include\game.hpp
 	"Pause.hpp"
 	"Menu.hpp"
 	"Multiplayer.hpp"
 
-1391784610 f:\codeblocks\projects\maingame\include\player.hpp
-	<SFML/Graphics.hpp>
-	<SFML/Network.hpp>
+1394037205 f:\codeblocks\projects\maingame\include\player.hpp
 	<cmath>
+	"Weapon.hpp"
 
 1365229832 f:\c++ libs\sfml\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -365,48 +364,49 @@
 1391014518 source:f:\codeblocks\projects\maingame\src\block.cpp
 	"../include/Block.hpp"
 
-1391870449 source:f:\codeblocks\projects\maingame\src\game.cpp
+1394109394 source:f:\codeblocks\projects\maingame\src\game.cpp
 	"../include/Game.hpp"
 
 1387718059 source:f:\codeblocks\projects\maingame\src\map.cpp
 	"../include/Map.hpp"
 
-1391784667 source:f:\codeblocks\projects\maingame\src\player.cpp
+1394037226 source:f:\codeblocks\projects\maingame\src\player.cpp
 	"../include/Player.hpp"
 
-1390927015 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
+1394037403 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
 	"../include/GameState.hpp"
 
-1390928592 source:f:\codeblocks\projects\maingame\src\pause.cpp
+1394037533 source:f:\codeblocks\projects\maingame\src\pause.cpp
 	"../include/Pause.hpp"
 
-1390928592 f:\codeblocks\projects\maingame\include\pause.hpp
+1394037468 f:\codeblocks\projects\maingame\include\pause.hpp
 	"GameState.hpp"
 
-1390928592 f:\codeblocks\projects\maingame\include\gamestate.hpp
+1394037347 f:\codeblocks\projects\maingame\include\gamestate.hpp
 	<SFML/Audio.hpp>
 	"Player.hpp"
 	"Map.hpp"
 	"SafeDelete.hpp"
 	"GameStateType.hpp"
+	"Logfile.hpp"
 
 1388757953 f:\codeblocks\projects\maingame\include\gamestatetype.hpp
 
-1390928591 f:\codeblocks\projects\maingame\include\menu.hpp
+1394037468 f:\codeblocks\projects\maingame\include\menu.hpp
 	"GameState.hpp"
 	"Button.hpp"
 
-1391861594 f:\codeblocks\projects\maingame\include\multiplayer.hpp
+1394108776 f:\codeblocks\projects\maingame\include\multiplayer.hpp
 	"GameState.hpp"
 	"Collision.hpp"
 	"Movement.hpp"
 	"Shot.hpp"
-	"PacketType.hpp"
+	<SFML/Network.hpp>
 
-1390928591 source:f:\codeblocks\projects\maingame\src\menu.cpp
+1394037519 source:f:\codeblocks\projects\maingame\src\menu.cpp
 	"../include/Menu.hpp"
 
-1391870806 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
+1394109536 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
 	"../include/Multiplayer.hpp"
 
 1389207885 f:\codeblocks\projects\maingame\include\button.hpp
@@ -432,10 +432,10 @@
 1389979077 source:f:\codeblocks\projects\maingame\src\event.cpp
 	"../include/Event.hpp"
 
-1391016789 source:f:\codeblocks\projects\maingame\src\movement.cpp
+1392391790 source:f:\codeblocks\projects\maingame\src\movement.cpp
 	"../include/Movement.hpp"
 
-1391016777 f:\codeblocks\projects\maingame\include\movement.hpp
+1392391803 f:\codeblocks\projects\maingame\include\movement.hpp
 	"Event.hpp"
 
 1389980145 source:f:\codeblocks\projects\maingame\src\shot.cpp
@@ -576,4 +576,22 @@
 	<vector>
 
 1391774454 f:\codeblocks\projects\maingame\include\packettype.hpp
+
+1392558317 f:\codeblocks\projects\maingame\include\weapon.hpp
+	"Bullet.hpp"
+	<stdlib.h>
+
+1392559357 f:\codeblocks\projects\maingame\include\bullet.hpp
+	<SFML/Graphics.hpp>
+	<vector>
+	<string>
+	<cmath>
+
+1394107583 f:\codeblocks\projects\maingame\include\logfile.hpp
+	<string>
+	<iostream>
+	<fstream>
+
+1394108592 source:f:\codeblocks\projects\maingame\src\logfile.cpp
+	"../include/Logfile.hpp"
 
