@@ -9,8 +9,8 @@ class CPause : public CGameState
         CPause (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         void SetGameStateTypeBeforePause (EGameStateType GameStateTypeBeforePause);
         void ProcessWindowEvents ();
-        void ProcessKeyboardEvents (unsigned int uiElapsed);
-        void ProcessMouseEvents (unsigned int uiElapsed);
+        void ProcessKeyboardEvents (unsigned int p_uiElapsed);
+        void ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow);
         void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts);
 
     private:

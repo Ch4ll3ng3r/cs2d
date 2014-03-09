@@ -1,13 +1,18 @@
 #include "../include/Multiplayer.hpp"
 
-CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile)
+CMultiplayer::CMultiplayer (map<string, sf::Texture> *p_pTextures, sf::RenderWindow *pWindow,
+                            EGameStateType *pCurGameStateType, CLogfile *pLogfile)
 : CGameState (pWindow, pCurGameStateType, pLogfile)
 {
+    // init weapons
+    m_pWeapon = nullptr;
+    m_pWeapon = new CRocketLauncher (&p_pTextures->at ("BulletRocketLauncher"));
+
     // block sprites
     for (int i = 0; i < 10000; i++)
     {
         sf::Sprite *pSprite = nullptr;
-        pSprite = new sf::Sprite (pTextures->at ("block_error"));
+        pSprite = new sf::Sprite (p_pTextures->at ("block_error"));
         m_vpSprites.push_back (pSprite);
         pSprite = nullptr;
     }
@@ -18,7 +23,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
     if (m_pMap->Load ("test"))
     {
         m_pLogfile->Write ("map loaded");
-        m_pMap->UpdateBlockTextures (pTextures);
+        m_pMap->UpdateBlockTextures (p_pTextures);
     }
     else
     {
@@ -28,16 +33,16 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
 
     // init player
     sf::Sprite *pSprite = nullptr;
-    pSprite = new sf::Sprite (pTextures->at ("Player"));
+    pSprite = new sf::Sprite (p_pTextures->at ("Player"));
     m_vpSprites.push_back (pSprite);
     sf::Vector2f fViewSize;
     fViewSize.x = static_cast<float> (m_pWindow->getSize ().x);
     fViewSize.y = static_cast<float> (m_pWindow->getSize ().y);
-    m_pPlayerLocal = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize);
+    m_pPlayerLocal = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize, m_pWeapon);
     pSprite = nullptr;
-    pSprite = new sf::Sprite (pTextures->at ("Player"));
+    pSprite = new sf::Sprite (p_pTextures->at ("Player"));
     m_vpSprites.push_back (pSprite);
-    m_pPlayerConnected = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize);
+    m_pPlayerConnected = new CPlayer (pSprite, m_pMap->GetTSpawnPos (), fViewSize, nullptr);
     pSprite = nullptr;
 
     // connect to server
@@ -70,6 +75,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *pTextures, sf::RenderWindo
             m_pLogfile->Write ("[ERROR] failed to connect to " + m_Ip.toString ());
         }
     }
+    p_pTextures = nullptr;
 }
 
 CMultiplayer::~CMultiplayer ()
@@ -79,9 +85,14 @@ CMultiplayer::~CMultiplayer ()
     {
         SAFE_DELETE (*i);
     }
+    vector<CBullet*>::iterator j;
+    for (j = m_vpBullets.begin (); j < m_vpBullets.end (); j++)
+    {
+        SAFE_DELETE (*j);
+    }
     SAFE_DELETE (m_pMap);
     SAFE_DELETE (m_pPlayerLocal);
-    SAFE_DELETE (m_pPlayerConnected);
+    SAFE_DELETE (m_pPlayerConnected);;
 }
 
 void CMultiplayer::ProcessWindowEvents ()
@@ -126,44 +137,54 @@ void CMultiplayer::ProcessWindowEvents ()
     }
 }
 
-void CMultiplayer::ProcessKeyboardEvents (unsigned int uiElapsed)
+void CMultiplayer::ProcessKeyboardEvents (unsigned int p_uiElapsed)
 {
-    m_pPlayerLocal->DecreaseVelocity (uiElapsed);
+    m_pPlayerLocal->DecreaseVelocity (p_uiElapsed);
     if (sf::Keyboard::isKeyPressed (sf::Keyboard::E))
     {
         m_pPlayerLocal->SetMovementDirection (0.f);
-        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->IncreaseVelocity (p_uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::D))
     {
         m_pPlayerLocal->SetMovementDirection (180.f);
-        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->IncreaseVelocity (p_uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::F))
     {
         m_pPlayerLocal->SetMovementDirection (90.f);
-        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->IncreaseVelocity (p_uiElapsed);
     }
     else if (sf::Keyboard::isKeyPressed (sf::Keyboard::S))
     {
         m_pPlayerLocal->SetMovementDirection (270.f);
-        m_pPlayerLocal->IncreaseVelocity (uiElapsed);
+        m_pPlayerLocal->IncreaseVelocity (p_uiElapsed);
     }
 }
 
-void CMultiplayer::ProcessMouseEvents (unsigned int uiElapsed)
+void CMultiplayer::ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow)
 {
+    // rotating
     if (sf::Mouse::getPosition (*m_pWindow).x != 960)
-        m_pPlayerLocal->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960), uiElapsed);
+        m_pPlayerLocal->Rotate (static_cast<float> (sf::Mouse::getPosition (*m_pWindow).x - 960), p_uiElapsed);
     sf::Mouse::setPosition (sf::Vector2i (960, 540), *m_pWindow);
+
+    // shooting
+    if (sf::Mouse::isButtonPressed (sf::Mouse::Left))
+    {
+        CShot *pShot = nullptr;
+        pShot = new CShot (m_pPlayerLocal, p_uiNow, &m_vpSprites, &m_vpBullets);
+        m_vpPendingEvents.push_back (pShot);
+        pShot = nullptr;
+    }
 }
 
-void CMultiplayer::CheckCollisions (unsigned int uiElapsed)
+void CMultiplayer::CheckCollisions ()
 {
     // collision check
     if (m_pPlayerLocal->RequestsMovement ())
     {
-        m_pPlayerLocal->Move (uiElapsed);
+        m_pPlayerLocal->Move ();
         bool bCollided = false;
         for (int i = 0; i < 100; i++)
         {
@@ -282,4 +303,21 @@ void CMultiplayer::ReceivePackets (unsigned int uiNow)
 bool CMultiplayer::ConnectionEstablished ()
 {
     return m_bConnected;
+}
+
+void CMultiplayer::UpdateBullets (unsigned int p_uiElapsed)
+{
+    for (vector<CBullet*>::iterator i = m_vpBullets.begin (); i != m_vpBullets.end (); i++)
+    {
+        (*i)->Fly (p_uiElapsed);
+    }
+}
+
+void CMultiplayer::UpdateSpriteList (vector<sf::Sprite*> *p_vpSprites)
+{
+    for (unsigned int i = p_vpSprites->size (); i < m_vpSprites.size (); i++)
+    {
+        p_vpSprites->push_back (m_vpSprites.at (i));
+    }
+
 }

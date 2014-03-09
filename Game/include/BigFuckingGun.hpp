@@ -6,7 +6,7 @@
 class CBigFuckingGun : public CWeapon
 {
     public:
-        CBigFuckingGun (sf::Texture *pTexture);
+        CBigFuckingGun (sf::Texture *p_pTexture);
 };
 
 #endif

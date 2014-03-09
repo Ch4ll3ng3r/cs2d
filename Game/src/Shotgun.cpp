@@ -1,21 +1,14 @@
 #include "../include/Shotgun.hpp"
 
-CShotgun::CShotgun ()
+CShotgun::CShotgun (sf::Texture *p_pTexture) :
+CWeapon (p_pTexture)
 {
     m_strBulletTextureName = "BulletShotgun";
-}
-
-void CShotgun::Init (sf::Texture *pTexture)
-{
-    m_pTexture = pTexture;
-    m_ShotDelay = 2000;
-    m_NbBulletsPerShot = 5;
-    m_Damage = 20;
-    m_BulletSpread = 10;
-    m_fPos.x = 0;
-    m_fPos.y = 0;
-    m_fVelocity = 1.0f;
-    m_LastShotTime = 0;
-    m_fBulletHeight = 20.f;
-    m_fBulletWidth = 20.f;
+    m_uiShotDelay = 2000;
+    m_uiNbBulletsPerShot = 5;
+    m_uiDamage = 20;
+    m_uiBulletSpread = 10;
+    m_fSize = sf::Vector2f (20.f, 20.f);
+    m_fVelocity = 10.f;
+    m_uiLastShotTime = 0;
 }

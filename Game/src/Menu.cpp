@@ -79,12 +79,12 @@ void CMenu::ProcessWindowEvents ()
     }
 }
 
-void CMenu::ProcessKeyboardEvents (unsigned int uiElapsed)
+void CMenu::ProcessKeyboardEvents (unsigned int p_uiElapsed)
 {
 
 }
 
-void CMenu::ProcessMouseEvents (unsigned int uiElapsed)
+void CMenu::ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow)
 {
     if (sf::Mouse::isButtonPressed (sf::Mouse::Button::Left))
     {

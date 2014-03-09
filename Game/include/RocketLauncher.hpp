@@ -6,7 +6,7 @@
 class CRocketLauncher : public CWeapon
 {
     public:
-        CRocketLauncher (sf::Texture *pTexture);
+        CRocketLauncher (sf::Texture *p_pTexture);
 };
 
 

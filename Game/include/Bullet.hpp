@@ -1,6 +1,9 @@
 #ifndef BULLET_HPP
 #define BULLET_HPP
 
+#define M_PI 3.141592
+#define DEG_TO_RAD(x) M_PI / 180 * x
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -11,7 +14,7 @@ using namespace std;
 class CBullet
 {
     public:
-        CBullet (sf::Sprite *pSprite, float fDirection, float fVelocity, sf::Vector2<float> fPos, sf::Vector2f fSize,
+        CBullet (sf::Sprite *pSprite, float fDirection, float fVelocity, sf::Vector2f fPos, sf::Vector2f fSize,
                  string strShootersName, unsigned int uiDamage, unsigned int uiSpriteId);
         ~CBullet ();
         void Fly (unsigned int uiElapsed);

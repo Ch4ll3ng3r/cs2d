@@ -14,8 +14,8 @@ class CGameState
         CGameState (sf::RenderWindow *pWindow, EGameStateType *pCurGameStateType, CLogfile *pLogfile);
         virtual ~CGameState();
         virtual void ProcessWindowEvents () = 0;
-        virtual void ProcessKeyboardEvents (unsigned int uiElapsed) = 0;
-        virtual void ProcessMouseEvents (unsigned int uiElapsed) = 0;
+        virtual void ProcessKeyboardEvents (unsigned int p_uiElapsed) = 0;
+        virtual void ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow) = 0;
         virtual void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts) = 0;
 
     protected:
@@ -23,6 +23,7 @@ class CGameState
         void FillTextList (vector<sf::Text*> *vpTexts);
         vector<sf::Sprite*> m_vpSprites;
         vector<sf::Text*> m_vpTexts;
+        vector<sf::Sound*> m_vpSounds;
         sf::RenderWindow *m_pWindow;
         CLogfile *m_pLogfile;
         EGameStateType *m_pCurGameStateType;

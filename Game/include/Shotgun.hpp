@@ -6,7 +6,7 @@
 class CShotgun : public CWeapon
 {
     public:
-        CShotgun (sf::Texture *pTexture);
+        CShotgun (sf::Texture *p_pTexture);
 };
 
 

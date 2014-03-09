@@ -136,6 +136,30 @@ void CGame::LoadTextures ()
         cout << "failed to load " << strPath << endl;
     texture = make_pair ("Button", _texture);
     m_Textures.insert (texture);
+    strPath = "Graphics/BulletBigFuckingGun.bmp";
+    if (!_texture.loadFromFile (strPath))
+    {
+        cout << "failed to load " << strPath << endl;
+        m_pLogfile->Write ("failed to load " + strPath);
+    }
+    texture = make_pair ("BulletBigFuckingGun", _texture);
+    m_Textures.insert (texture);
+    strPath = "Graphics/BulletRocketLauncher.bmp";
+    if (!_texture.loadFromFile (strPath))
+    {
+        cout << "failed to load " << strPath << endl;
+        m_pLogfile->Write ("failed to load " + strPath);
+    }
+    texture = make_pair ("BulletRocketLauncher", _texture);
+    m_Textures.insert (texture);
+    strPath = "Graphics/BulletShotgun.bmp";
+    if (!_texture.loadFromFile (strPath))
+    {
+        cout << "failed to load " << strPath << endl;
+        m_pLogfile->Write ("failed to load " + strPath);
+    }
+    texture = make_pair ("BulletShotgun", _texture);
+    m_Textures.insert (texture);
 }
 
 void CGame::Update ()
@@ -144,11 +168,13 @@ void CGame::Update ()
     if (m_CurGameStateType != PAUSE)
     {
         m_pCurGameState->ProcessKeyboardEvents (m_uiElapsedTime);
-        m_pCurGameState->ProcessMouseEvents (m_uiElapsedTime);
+        m_pCurGameState->ProcessMouseEvents (m_uiElapsedTime, m_uiNow);
         if (m_CurGameStateType == MULTIPLAYER)
         {
-            m_pMultiplayer->CheckCollisions (m_uiElapsedTime);
+            m_pMultiplayer->CheckCollisions ();
             m_pMultiplayer->ProcessGameEvents ();
+            m_pMultiplayer->UpdateSpriteList (&m_vpSprites);
+            m_pMultiplayer->UpdateBullets (m_uiElapsedTime);
             m_pMultiplayer->UpdateView ();
         }
         else

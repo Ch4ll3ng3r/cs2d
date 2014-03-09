@@ -2,13 +2,12 @@
 1390135389 source:f:\codeblocks\projects\maingame\main.cpp
 	"include/Game.hpp"
 
-1394037424 f:\codeblocks\projects\maingame\include\game.hpp
+1394366590 f:\codeblocks\projects\maingame\include\game.hpp
 	"Pause.hpp"
 	"Menu.hpp"
 	"Multiplayer.hpp"
 
-1394037205 f:\codeblocks\projects\maingame\include\player.hpp
-	<cmath>
+1394382469 f:\codeblocks\projects\maingame\include\player.hpp
 	"Weapon.hpp"
 
 1365229832 f:\c++ libs\sfml\include\sfml\graphics.hpp
@@ -364,25 +363,25 @@
 1391014518 source:f:\codeblocks\projects\maingame\src\block.cpp
 	"../include/Block.hpp"
 
-1394109394 source:f:\codeblocks\projects\maingame\src\game.cpp
+1394381560 source:f:\codeblocks\projects\maingame\src\game.cpp
 	"../include/Game.hpp"
 
 1387718059 source:f:\codeblocks\projects\maingame\src\map.cpp
 	"../include/Map.hpp"
 
-1394037226 source:f:\codeblocks\projects\maingame\src\player.cpp
+1394382329 source:f:\codeblocks\projects\maingame\src\player.cpp
 	"../include/Player.hpp"
 
-1394037403 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
+1394367269 source:f:\codeblocks\projects\maingame\src\gamestate.cpp
 	"../include/GameState.hpp"
 
-1394037533 source:f:\codeblocks\projects\maingame\src\pause.cpp
+1394380771 source:f:\codeblocks\projects\maingame\src\pause.cpp
 	"../include/Pause.hpp"
 
-1394037468 f:\codeblocks\projects\maingame\include\pause.hpp
+1394380691 f:\codeblocks\projects\maingame\include\pause.hpp
 	"GameState.hpp"
 
-1394037347 f:\codeblocks\projects\maingame\include\gamestate.hpp
+1394380656 f:\codeblocks\projects\maingame\include\gamestate.hpp
 	<SFML/Audio.hpp>
 	"Player.hpp"
 	"Map.hpp"
@@ -392,21 +391,25 @@
 
 1388757953 f:\codeblocks\projects\maingame\include\gamestatetype.hpp
 
-1394037468 f:\codeblocks\projects\maingame\include\menu.hpp
+1394380705 f:\codeblocks\projects\maingame\include\menu.hpp
 	"GameState.hpp"
 	"Button.hpp"
 
-1394108776 f:\codeblocks\projects\maingame\include\multiplayer.hpp
+1394381116 f:\codeblocks\projects\maingame\include\multiplayer.hpp
 	"GameState.hpp"
 	"Collision.hpp"
 	"Movement.hpp"
 	"Shot.hpp"
 	<SFML/Network.hpp>
+	"Bullet.hpp"
+	"BigFuckingGun.hpp"
+	"Shotgun.hpp"
+	"RocketLauncher.hpp"
 
-1394037519 source:f:\codeblocks\projects\maingame\src\menu.cpp
+1394380771 source:f:\codeblocks\projects\maingame\src\menu.cpp
 	"../include/Menu.hpp"
 
-1394109536 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
+1394382544 source:f:\codeblocks\projects\maingame\src\multiplayer.cpp
 	"../include/Multiplayer.hpp"
 
 1389207885 f:\codeblocks\projects\maingame\include\button.hpp
@@ -438,10 +441,10 @@
 1392391803 f:\codeblocks\projects\maingame\include\movement.hpp
 	"Event.hpp"
 
-1389980145 source:f:\codeblocks\projects\maingame\src\shot.cpp
+1394380911 source:f:\codeblocks\projects\maingame\src\shot.cpp
 	"../include/Shot.hpp"
 
-1389980101 f:\codeblocks\projects\maingame\include\shot.hpp
+1394380148 f:\codeblocks\projects\maingame\include\shot.hpp
 	"Event.hpp"
 
 1365229832 f:\c++ libs\sfml\include\sfml\audio.hpp
@@ -577,11 +580,11 @@
 
 1391774454 f:\codeblocks\projects\maingame\include\packettype.hpp
 
-1392558317 f:\codeblocks\projects\maingame\include\weapon.hpp
+1394367411 f:\codeblocks\projects\maingame\include\weapon.hpp
 	"Bullet.hpp"
 	<stdlib.h>
 
-1392559357 f:\codeblocks\projects\maingame\include\bullet.hpp
+1394382476 f:\codeblocks\projects\maingame\include\bullet.hpp
 	<SFML/Graphics.hpp>
 	<vector>
 	<string>
@@ -594,4 +597,28 @@
 
 1394108592 source:f:\codeblocks\projects\maingame\src\logfile.cpp
 	"../include/Logfile.hpp"
+
+1394382659 source:f:\codeblocks\projects\maingame\src\bigfuckinggun.cpp
+	"../include/BigFuckingGun.hpp"
+
+1394298239 f:\codeblocks\projects\maingame\include\bigfuckinggun.hpp
+	"Weapon.hpp"
+
+1394382492 source:f:\codeblocks\projects\maingame\src\bullet.cpp
+	"../include/Bullet.hpp"
+
+1394382677 source:f:\codeblocks\projects\maingame\src\rocketlauncher.cpp
+	"../include/RocketLauncher.hpp"
+
+1394298966 f:\codeblocks\projects\maingame\include\rocketlauncher.hpp
+	"Weapon.hpp"
+
+1394382668 source:f:\codeblocks\projects\maingame\src\shotgun.cpp
+	"../include/Shotgun.hpp"
+
+1394298640 f:\codeblocks\projects\maingame\include\shotgun.hpp
+	"Weapon.hpp"
+
+1394368282 source:f:\codeblocks\projects\maingame\src\weapon.cpp
+	"../include/Weapon.hpp"
 

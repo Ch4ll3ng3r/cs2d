@@ -9,7 +9,7 @@ CBullet::CBullet (sf::Sprite *pSprite, float fDirection, float fVelocity, sf::Ve
     m_fDirection = fDirection;
     m_fVelocity = fVelocity;
     m_fPos = fPos;
-    m_fSize = fSize
+    m_fSize = fSize;
     m_pSprite->setOrigin (0, m_fSize.y);
     m_pSprite->setRotation (m_fDirection);
     m_pSprite->setPosition (m_fPos);
@@ -24,10 +24,8 @@ CBullet::~CBullet ()
 
 void CBullet::Fly (unsigned int elapsed)
 {
-    if (m_fDirection == 0.f)
-        m_fPos.x += m_fVelocity * static_cast<float> (elapsed);
-    else
-        m_fPos.x -= m_fVelocity * static_cast<float> (elapsed);
+    m_fPos.x += m_fVelocity * cos (DEG_TO_RAD(m_fDirection));
+    m_fPos.y += m_fVelocity * sin (DEG_TO_RAD(m_fDirection));
     m_pSprite->setPosition (m_fPos);
 }
 

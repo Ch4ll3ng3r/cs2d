@@ -9,12 +9,10 @@ CWeapon::CWeapon (sf::Texture *pTexture)
     m_uiNbBulletsPerShot = 1;
     m_uiDamage = 88;
     m_uiBulletSpread = 0;
-    m_fPos.x = 0.f;
-    m_fPos.y = 0.f;
+    m_fPos = sf::Vector2f (0.f, 0.f);
+    m_fSize = sf::Vector2f (10.f, 10.f);
     m_fVelocity = 1.0f;
     m_uiLastShotTime = 0;
-    m_fBulletWidth = 10.f;
-    m_fBulletHeight = 10.f;
 }
 
 CWeapon::~CWeapon ()
@@ -26,19 +24,16 @@ void CWeapon::Shoot (vector<CBullet*> *vpBullets, vector<sf::Sprite*> *vpSprites
 {
     sf::Sprite *pSprite = nullptr;
     CBullet *pBullet = nullptr;
-    float _fDirection;
-    int BulletSpread = 0;
-    for (unsigned int i = 0; i < m_NbBulletsPerShot; i++)
+    float _fDirection = 0.f;
+    int uiBulletSpread = 0;
+    for (unsigned int i = 0; i < m_uiNbBulletsPerShot; i++)
     {
         pSprite = new sf::Sprite;
         pSprite->setTexture (*m_pTexture);
         vpSprites->push_back (pSprite);
-        BulletSpread = rand () % (m_uiBulletSpread * 2) - m_uiBulletSpread;;
-        if (m_uiBulletSpread > 0)
-            _fDirection = fDirection + static_cast<float> (BulletSpread);
-        else
-            _fDirection = fDirection;
-        pBullet = new CBullet (pSprite, _fDirection, m_fVelocity, m_fPos, m_fBulletWidth, m_fBulletHeight, strShootersName, m_uiDamage, vpSprites->size - 1);
+        uiBulletSpread = rand () % (m_uiBulletSpread * 2) - m_uiBulletSpread;;
+        _fDirection = fDirection + static_cast<float> (uiBulletSpread);
+        pBullet = new CBullet (pSprite, _fDirection, m_fVelocity, m_fPos, m_fSize, strShootersName, m_uiDamage, vpSprites->size () - 1);
         vpBullets->push_back (pBullet);
     }
 }

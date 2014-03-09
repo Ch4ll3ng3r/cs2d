@@ -9,7 +9,7 @@ class CWeapon
     public:
         CWeapon (sf::Texture *pTexture);
         virtual ~CWeapon ();
-        void Shoot (std::vector<CBullet*> *vpBullets, std::vector<sf::Sprite*> *vpSprites, float fDirection, std::string strShootersName);
+        void Shoot (vector<CBullet*> *vpBullets, vector<sf::Sprite*> *vpSprites, float fDirection, string strShootersName);
         void SetPos (sf::Vector2f fPos);
         string GetBulletTextureName ();
         bool IsShotAvailable (unsigned int uiNow);
@@ -21,11 +21,10 @@ class CWeapon
         unsigned int m_uiBulletSpread;
         sf::Texture *m_pTexture;
         sf::Vector2f m_fPos;
+        sf::Vector2f m_fSize;
         float m_fVelocity;
         string m_strBulletTextureName;
         unsigned int m_uiLastShotTime;
-        float m_fBulletWidth;
-        float m_fBulletHeight;
 };
 
 #endif

@@ -45,12 +45,12 @@ void CPause::Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts
     // nothing
 }
 
-void CPause::ProcessKeyboardEvents (unsigned int uiElapsed)
+void CPause::ProcessKeyboardEvents (unsigned int p_uiElapsed)
 {
     // nothing
 }
 
-void CPause::ProcessMouseEvents (unsigned int uiElapsed)
+void CPause::ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow)
 {
     // nothing
 }

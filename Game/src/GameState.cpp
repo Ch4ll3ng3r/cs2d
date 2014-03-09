@@ -23,6 +23,13 @@ CGameState::~CGameState ()
         SAFE_DELETE (*j);
     }
 
+    // sounds
+    vector<sf::Sound*>::iterator k;
+    for (k = m_vpSounds.begin (); k < m_vpSounds.end (); k++)
+    {
+        SAFE_DELETE (*k);
+    }
+
     m_pWindow = nullptr;
     m_pCurGameStateType = nullptr;
     m_pLogfile = nullptr;

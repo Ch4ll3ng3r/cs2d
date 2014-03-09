@@ -1,6 +1,6 @@
 #include "../include/Player.hpp"
 
-CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize)
+CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize, CWeapon *p_pWeapon)
 {
     m_fPos.x = fPos.x;
     m_fPos.y = fPos.y;
@@ -11,12 +11,15 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
     m_fMovementDirection = 0.f;
     m_fMaxVelocity = 0.2f;
     m_fCurVelocity = 0.f;
-    m_fVelocityIncrease = 0.01f;
-    m_fVelocityDecrease = 0.001f;
+    m_fVelocityIncrease = 0.02f;
+    m_fVelocityDecrease = m_fVelocityIncrease / 2;
     m_fRotationVelocity = 0.01f;
     m_bRequestsMovement = false;
     m_pSprite = nullptr;
     m_pSprite = pSprite;
+    m_pWeapon = nullptr;
+    m_pWeapon = p_pWeapon;
+    m_strName = "Horst";
     m_View.setCenter (m_fPos);
     m_View.setSize (fViewSize);
     m_pSprite->setOrigin (30.f, 30.f);
@@ -71,21 +74,21 @@ void CPlayer::DecreaseVelocity (unsigned int uiElapsed)
 
 void CPlayer::IncreaseVelocity (unsigned int uiElapsed)
 {
-    if (m_fCurVelocity < m_fMaxVelocity)
+    if (m_fCurVelocity < m_fMaxVelocity * static_cast<float> (uiElapsed))
     {
         m_fCurVelocity += m_fVelocityIncrease * static_cast<float> (uiElapsed);
-        if (m_fCurVelocity > m_fMaxVelocity)
-            m_fCurVelocity = m_fMaxVelocity;
+        if (m_fCurVelocity > m_fMaxVelocity * static_cast<float> (uiElapsed))
+            m_fCurVelocity = m_fMaxVelocity * static_cast<float> (uiElapsed);
     }
 
 }
 
-void CPlayer::Move (unsigned int uiElapsed)
+void CPlayer::Move ()
 {
     m_fOldPos = m_fPos;
     m_bRequestsMovement = false;
-    m_fPos.x += m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed),
-    m_fPos.y += m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection)) * static_cast<float> (uiElapsed);
+    m_fPos.x += m_fCurVelocity * cos (DEG_TO_RAD(m_fMovementDirection));
+    m_fPos.y += m_fCurVelocity * sin (DEG_TO_RAD(m_fMovementDirection));
 }
 
 void CPlayer::UpdateSpriteAndView ()
@@ -162,22 +165,11 @@ void CPlayer::SetViewDirection (float fDirection)
     m_pSprite->setRotation (m_fViewDirection);
 }
 
-/*void CPlayer::Shoot (vector<CBullet*> *vpBullets, vector<sf::Sprite*> *vpSprites, unsigned int uiNow)
+void CPlayer::Shoot (unsigned int p_uiNow, vector<sf::Sprite*> *p_vpSprites, vector<CBullet*> *p_vpBullets)
 {
-    if (m_pCurrentWeapon->IsShotAvailable (uiNow))
+    if (m_pWeapon->IsShotAvailable (p_uiNow))
     {
-        m_pWeapon->SetPos ()
-        m_pWeapon->Shoot (vpBullets, vpSprites, m_fDirection, m_strName);
+        m_pWeapon->SetPos (m_fPos);
+        m_pWeapon->Shoot (p_vpBullets, p_vpSprites, m_fViewDirection, m_strName);
     }
-}*/
-
-// overload of packet operator
-/*sf::Packet& operator << (sf::Packet& packet, const CPlayer& Player)
-{
-    return packet << Player.GetPos ().x << Player.GetPos.y () << Player.GetViewDirection ();
 }
-
-sf::Packet& operator >> (sf::Packet& packet, const CPlayer& Player)
-{
-    return packet >> Player.m_fPos.x >> Player.m_fPos.y >> Player.m_fViewDirection;
-}*/
