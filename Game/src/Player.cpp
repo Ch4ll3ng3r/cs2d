@@ -2,10 +2,8 @@
 
 CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize, CWeapon *p_pWeapon)
 {
-    m_fPos.x = fPos.x;
-    m_fPos.y = fPos.y;
-    m_fOldPos.x = 0.f;
-    m_fOldPos.y = 0.f;
+    m_fPos = fPos;
+    m_fOldPos = sf::Vector2f (0.f, 0.f);
     m_fViewDirection = 0.f;
     m_fOldViewDirection = 0.f;
     m_fMovementDirection = 0.f;
@@ -172,4 +170,9 @@ void CPlayer::Shoot (unsigned int p_uiNow, vector<sf::Sprite*> *p_vpSprites, vec
         m_pWeapon->SetPos (m_fPos);
         m_pWeapon->Shoot (p_vpBullets, p_vpSprites, m_fViewDirection, m_strName);
     }
+}
+
+sf::Sprite* CPlayer::GetSprite ()
+{
+    return m_pSprite;
 }

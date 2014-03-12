@@ -20,6 +20,7 @@ class CBullet
         void Fly (unsigned int uiElapsed);
         sf::Vector2f GetPos ();
         sf::Vector2f GetSize ();
+        sf::Sprite* GetSprite ();
         string GetShootersName ();
         bool CheckCollision (sf::Vector2f fSpot);
         unsigned int GetDamage ();

@@ -24,8 +24,8 @@ CBullet::~CBullet ()
 
 void CBullet::Fly (unsigned int elapsed)
 {
-    m_fPos.x += m_fVelocity * cos (DEG_TO_RAD(m_fDirection));
-    m_fPos.y += m_fVelocity * sin (DEG_TO_RAD(m_fDirection));
+    m_fPos.x += m_fVelocity * cos (DEG_TO_RAD(m_fDirection)) * static_cast<float> (elapsed);
+    m_fPos.y += m_fVelocity * sin (DEG_TO_RAD(m_fDirection)) * static_cast<float> (elapsed);
     m_pSprite->setPosition (m_fPos);
 }
 
@@ -57,4 +57,9 @@ string CBullet::GetShootersName ()
 unsigned int CBullet::GetSpriteId ()
 {
     return m_uiSpriteId;
+}
+
+sf::Sprite* CBullet::GetSprite ()
+{
+    return m_pSprite;
 }

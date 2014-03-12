@@ -6,7 +6,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *p_pTextures, sf::RenderWin
 {
     // init weapons
     m_pWeapon = nullptr;
-    m_pWeapon = new CRocketLauncher (&p_pTextures->at ("BulletRocketLauncher"));
+    m_pWeapon = new CShotgun (&p_pTextures->at ("BulletShotgun"));
 
     // block sprites
     for (int i = 0; i < 10000; i++)
@@ -192,26 +192,8 @@ void CMultiplayer::CheckCollisions ()
             {
                 if (m_pMap->GetBlock (i, j)->IsStable ())
                 {
-                    sf::Vector2f fPos = m_pPlayerLocal->GetPos ();
-                    float fDirection = m_pPlayerLocal->GetViewDirection ();
-                    fDirection -= 90.f;
-                    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-                    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-                    fDirection += 90.f;
-                    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-                    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-
-                    for (int k = 0; k < 4; k++)
-                    {
-                        fDirection += 90.f;
-                        for (int l = 0; l < 60; l++)
-                        {
-                            fPos.x += 1.f * cos (DEG_TO_RAD(fDirection));
-                            fPos.y += 1.f * sin (DEG_TO_RAD(fDirection));
-                            if (m_pMap->GetBlock (i, j)->CheckCollision (fPos))
-                                bCollided = true;
-                        }
-                    }
+                    if (m_pMap->GetBlock (i, j)->CheckCollision (m_pPlayerLocal->GetSprite (), m_pPlayerLocal->GetPos ()))
+                        bCollided = true;
                 }
             }
         }
@@ -311,13 +293,4 @@ void CMultiplayer::UpdateBullets (unsigned int p_uiElapsed)
     {
         (*i)->Fly (p_uiElapsed);
     }
-}
-
-void CMultiplayer::UpdateSpriteList (vector<sf::Sprite*> *p_vpSprites)
-{
-    for (unsigned int i = p_vpSprites->size (); i < m_vpSprites.size (); i++)
-    {
-        p_vpSprites->push_back (m_vpSprites.at (i));
-    }
-
 }

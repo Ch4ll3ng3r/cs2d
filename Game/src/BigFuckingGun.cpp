@@ -9,6 +9,6 @@ CWeapon (p_pTexture)
     m_uiDamage = 100;
     m_uiBulletSpread = 10;
     m_fSize = sf::Vector2f (300.f, 300.f);
-    m_fVelocity = 1.f;
+    m_fVelocity = 0.1f;
     m_uiLastShotTime = 0;
 }

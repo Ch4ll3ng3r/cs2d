@@ -6,7 +6,7 @@ CCollision::CCollision (CPlayer *pPlayer)
     m_pPlayer = pPlayer;
 }
 
-CCollision::~CCollision()
+CCollision::~CCollision ()
 {
     m_pPlayer = nullptr;
 }

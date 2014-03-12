@@ -17,10 +17,10 @@ class CGameState
         virtual void ProcessKeyboardEvents (unsigned int p_uiElapsed) = 0;
         virtual void ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_uiNow) = 0;
         virtual void Prepare (vector<sf::Sprite*> *vpSprites, vector<sf::Text*> *vpTexts) = 0;
-
-    protected:
         void FillSpriteList (vector<sf::Sprite*> *vpSprites);
         void FillTextList (vector<sf::Text*> *vpTexts);
+
+    protected:
         vector<sf::Sprite*> m_vpSprites;
         vector<sf::Text*> m_vpTexts;
         vector<sf::Sound*> m_vpSounds;

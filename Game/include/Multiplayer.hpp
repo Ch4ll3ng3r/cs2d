@@ -27,7 +27,6 @@ class CMultiplayer : public CGameState
         void SendPackets (unsigned int uiNow);
         void ReceivePackets (unsigned int uiNow);
         void UpdateBullets (unsigned int p_uiElapsed);
-        void UpdateSpriteList (vector<sf::Sprite*> *p_vpSprites);
         bool ConnectionEstablished ();
 
     private:

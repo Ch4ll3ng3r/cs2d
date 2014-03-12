@@ -25,6 +25,7 @@ class CPlayer
         bool RequestsMovement ();
         sf::View& GetView ();
         sf::Vector2f GetPos ();
+        sf::Sprite* GetSprite ();
 
     private:
         sf::Vector2f m_fPos;

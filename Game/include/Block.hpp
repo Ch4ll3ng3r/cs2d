@@ -1,8 +1,12 @@
 #ifndef BLOCK_HPP_INCLUDED
 #define BLOCK_HPP_INCLUDED
 
+#define M_PI 3.141592
+#define DEG_TO_RAD(x) M_PI / 180 * x
+
 #include <SFML/Graphics.hpp>
 #include "BlockType.hpp"
+#include <cmath>
 
 class CBlock
 {
@@ -14,7 +18,7 @@ class CBlock
         void SetSprite (sf::Sprite *pSprite);
         void SetTexture (sf::Texture &rTexture);
         EBlockType GetType ();
-        bool CheckCollision (sf::Vector2f fPos);
+        bool CheckCollision (sf::Sprite *p_pSprite, sf::Vector2f p_fPos);
         bool IsStable ();
         sf::Vector2f GetPos ();
 
@@ -22,6 +26,7 @@ class CBlock
         sf::Sprite *m_pSprite;
         sf::Vector2f m_fPos;
         sf::Vector2i m_BlockPos;
+        sf::Vector2i m_iSize;
         EBlockType m_Type;
         bool m_bIsStable;
 };

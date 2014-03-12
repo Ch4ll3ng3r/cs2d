@@ -7,6 +7,8 @@ CBlock::CBlock ()
     m_fPos.y = 0.f;
     m_BlockPos.x = 0;
     m_BlockPos.y = 0;
+    m_iSize.x = 60;
+    m_iSize.y = 60;
     m_Type = GROUND;
     m_bIsStable = false;
 }
@@ -51,12 +53,38 @@ void CBlock::SetTexture (sf::Texture &rTexture)
     m_pSprite->setTexture (rTexture);
 }
 
-bool CBlock::CheckCollision (sf::Vector2f fSpot)
+bool CBlock::CheckCollision (sf::Sprite *p_pSprite, sf::Vector2f p_fPos)
 {
-    return ((fSpot.x >= m_fPos.x - 30.f) &&
-            (fSpot.x <= m_fPos.x + 30.f) &&
-            (fSpot.y >= m_fPos.y - 30.f) &&
-            (fSpot.y <= m_fPos.y + 30.f));
+    bool bCollided = false;
+    int iNbSteps = 0;
+    float fDirection = p_pSprite->getRotation ();
+    if (p_pSprite->getOrigin () != sf::Vector2f (0.f, 0.f))
+    {
+        fDirection -= 90.f;
+        p_fPos.x += p_pSprite->getOrigin ().x * cos (DEG_TO_RAD(fDirection));
+        p_fPos.y += p_pSprite->getOrigin ().y * sin (DEG_TO_RAD(fDirection));
+        fDirection += 90.f;
+        p_fPos.x +=  p_pSprite->getOrigin ().x * cos (DEG_TO_RAD(fDirection));
+        p_fPos.y += p_pSprite->getOrigin ().y * sin (DEG_TO_RAD(fDirection));
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        fDirection += 90.f;
+        if (i % 2 == 1)
+            iNbSteps = p_pSprite->getTextureRect ().height;
+        else
+            iNbSteps = p_pSprite->getTextureRect ().width;
+        for (int j = 0; j < 60; j++)
+        {
+            p_fPos.x += 1.f * cos (DEG_TO_RAD(fDirection));
+            p_fPos.y += 1.f * sin (DEG_TO_RAD(fDirection));
+            if ((p_fPos.x >= m_fPos.x - static_cast<float> (m_iSize.x) / 2) && (p_fPos.x <= m_fPos.x + static_cast<float> (m_iSize.x) / 2) &&
+                (p_fPos.y >= m_fPos.y - static_cast<float> (m_iSize.y) / 2) && (p_fPos.y <= m_fPos.y + static_cast<float> (m_iSize.y) / 2))
+                bCollided = true;
+        }
+    }
+    return bCollided;
 }
 
 bool CBlock::IsStable ()
