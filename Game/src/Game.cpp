@@ -171,11 +171,11 @@ void CGame::Update ()
         m_pCurGameState->ProcessMouseEvents (m_uiElapsedTime, m_uiNow);
         if (m_CurGameStateType == MULTIPLAYER)
         {
+            m_pMultiplayer->UpdateBullets (m_uiElapsedTime);
             m_pMultiplayer->CheckCollisions ();
             m_pMultiplayer->ProcessGameEvents ();
             ClearSpriteList ();
             m_pMultiplayer->FillSpriteList (&m_vpSprites);
-            m_pMultiplayer->UpdateBullets (m_uiElapsedTime);
             m_pMultiplayer->UpdateView ();
         }
         else

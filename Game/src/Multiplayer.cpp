@@ -6,7 +6,7 @@ CMultiplayer::CMultiplayer (map<string, sf::Texture> *p_pTextures, sf::RenderWin
 {
     // init weapons
     m_pWeapon = nullptr;
-    m_pWeapon = new CShotgun (&p_pTextures->at ("BulletShotgun"));
+    m_pWeapon = new CRocketLauncher (&p_pTextures->at ("BulletRocketLauncher"));
 
     // block sprites
     for (int i = 0; i < 10000; i++)
@@ -181,11 +181,11 @@ void CMultiplayer::ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_
 
 void CMultiplayer::CheckCollisions ()
 {
-    // collision check
+    bool bCollided = false;
+    // player vs block collision
     if (m_pPlayerLocal->RequestsMovement ())
     {
         m_pPlayerLocal->Move ();
-        bool bCollided = false;
         for (int i = 0; i < 100; i++)
         {
             for (int j = 0; j < 100; j++)
@@ -201,8 +201,8 @@ void CMultiplayer::CheckCollisions ()
         // consequences
         if (bCollided)
         {
-            CCollision *pCollision = nullptr;
-            pCollision = new CCollision (m_pPlayerLocal);
+            CCollisionPlayerVsBlock *pCollision = nullptr;
+            pCollision = new CCollisionPlayerVsBlock (m_pPlayerLocal);
             m_vpPendingEvents.push_back (pCollision);
             pCollision = nullptr;
         }
@@ -212,6 +212,33 @@ void CMultiplayer::CheckCollisions ()
             pMovement = new CMovement (m_pPlayerLocal);
             m_vpPendingEvents.push_back (pMovement);
             pMovement = nullptr;
+        }
+    }
+
+    // bullet vs block collision
+    bCollided = false;
+    vector<CBullet*>::iterator i;
+    for (i = m_vpBullets.begin (); i < m_vpBullets.end (); i++)
+    {
+        for (int j = 0; j < 100; j++)
+        {
+            for (int k = 0; k < 100; k++)
+            {
+                if (m_pMap->GetBlock (j, k)->IsStable ())
+                {
+                    if (m_pMap->GetBlock (j, k)->CheckCollision ((*i)->GetSprite (), (*i)->GetPos ()))
+                        bCollided = true;
+                }
+            }
+        }
+
+        // consequences
+        if (bCollided)
+        {
+            CCollisionBulletVsBlock *pCollision = nullptr;
+            pCollision = new CCollisionBulletVsBlock (&m_vpSprites, &m_vpBullets, m_vpSprites.at ((*i)->GetSpriteId ()), (*i));
+            m_vpPendingEvents.push_back (pCollision);
+            pCollision = nullptr;
         }
     }
 }

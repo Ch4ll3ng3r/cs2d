@@ -1,69 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include\Weapon.hpp" open="1" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Game.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="825" topLine="0" />
+			<Cursor1 position="5822" topLine="147" />
 		</Cursor>
 	</File>
-	<File name="src\Pause.cpp" open="1" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\GameState.cpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1287" topLine="16" />
+			<Cursor1 position="746" topLine="13" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Logfile.cpp" open="1" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="27" topLine="0" />
+			<Cursor1 position="629" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Player.cpp" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Map.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2624" topLine="60" />
+			<Cursor1 position="1685" topLine="47" />
 		</Cursor>
 	</File>
-	<File name="src\BigFuckingGun.cpp" open="1" top="0" tabpos="31" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Menu.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="353" topLine="0" />
+			<Cursor1 position="2590" topLine="65" />
 		</Cursor>
 	</File>
-	<File name="src\RocketLauncher.cpp" open="1" top="0" tabpos="36" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Movement.cpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="354" topLine="0" />
+			<Cursor1 position="257" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\BigFuckingGun.hpp" open="1" top="0" tabpos="32" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Multiplayer.cpp" open="1" top="1" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="176" topLine="0" />
+			<Cursor1 position="391" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Shot.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Pause.cpp" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="594" topLine="0" />
+			<Cursor1 position="1256" topLine="16" />
 		</Cursor>
 	</File>
-	<File name="include\Block.hpp" open="1" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Player.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="504" topLine="0" />
+			<Cursor1 position="160" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Shotgun.cpp" open="1" top="0" tabpos="33" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Bullet.hpp" open="1" top="0" tabpos="32" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="328" topLine="0" />
+			<Cursor1 position="618" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\BlockType.hpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\RocketLauncher.cpp" open="1" top="0" tabpos="34" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="182" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Weapon.cpp" open="1" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="855" topLine="19" />
-		</Cursor>
-	</File>
-	<File name="include\Bullet.hpp" open="1" top="0" tabpos="34" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="101" topLine="0" />
+			<Cursor1 position="349" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include\Button.hpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -71,49 +61,94 @@
 			<Cursor1 position="131" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Collision.hpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Shot.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="131" topLine="0" />
+			<Cursor1 position="594" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Event.hpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\CollisionBulletVsBlock.hpp" open="1" top="0" tabpos="40" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="670" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Shotgun.cpp" open="1" top="0" tabpos="31" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="326" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Pause.hpp" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="502" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Weapon.cpp" open="1" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="855" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="include\Player.hpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1053" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Event.hpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="105" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\EventType.hpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\RocketLauncher.hpp" open="1" top="0" tabpos="35" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="107" topLine="0" />
+			<Cursor1 position="198" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\EventType.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="130" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\SafeDelete.hpp" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="149" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include\Game.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1522" topLine="11" />
+			<Cursor1 position="1472" topLine="11" />
 		</Cursor>
 	</File>
-	<File name="include\GameState.hpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Shot.hpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="498" topLine="0" />
+			<Cursor1 position="478" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\GameStateType.hpp" open="1" top="0" tabpos="39" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\GameState.hpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="824" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Shotgun.hpp" open="1" top="0" tabpos="33" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="151" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\GameStateType.hpp" open="1" top="0" tabpos="37" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="105" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Block.cpp" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Weapon.hpp" open="1" top="0" tabpos="28" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1195" topLine="27" />
+			<Cursor1 position="811" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Logfile.hpp" open="1" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Logfile.hpp" open="1" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="303" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Bullet.cpp" open="1" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="787" topLine="0" />
+			<Cursor1 position="27" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include\Map.hpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -121,99 +156,69 @@
 			<Cursor1 position="636" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="src\BigFuckingGun.cpp" open="1" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="356" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Menu.hpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="542" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Block.cpp" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2363" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="include\Movement.hpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="174" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Bullet.cpp" open="1" top="0" tabpos="36" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1165" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="include\Multiplayer.hpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1143" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="src\Button.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="972" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Menu.hpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\CollisionBulletVsBlock.cpp" open="1" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="542" topLine="0" />
+			<Cursor1 position="1111" topLine="6" />
 		</Cursor>
 	</File>
-	<File name="src\Collision.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\BigFuckingGun.hpp" open="1" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="436" topLine="0" />
+			<Cursor1 position="176" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Movement.hpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\CollisionPlayerVsBlock.cpp" open="1" top="0" tabpos="39" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="174" topLine="0" />
+			<Cursor1 position="279" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\Event.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Block.hpp" open="1" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="548" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\BlockType.hpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="182" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Event.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="136" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\Multiplayer.hpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1089" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="src\Game.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6374" topLine="288" />
-		</Cursor>
-	</File>
-	<File name="include\Pause.hpp" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="502" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\GameState.cpp" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="746" topLine="13" />
-		</Cursor>
-	</File>
-	<File name="include\Player.hpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="56" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Logfile.cpp" open="1" top="0" tabpos="28" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="629" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\RocketLauncher.hpp" open="1" top="0" tabpos="37" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="198" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Map.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1685" topLine="47" />
-		</Cursor>
-	</File>
-	<File name="include\SafeDelete.hpp" open="1" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="149" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Menu.cpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2590" topLine="65" />
-		</Cursor>
-	</File>
-	<File name="include\Shot.hpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="478" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Movement.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="257" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\Shotgun.hpp" open="1" top="0" tabpos="35" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="151" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\Multiplayer.cpp" open="1" top="1" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="358" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

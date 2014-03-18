@@ -2,7 +2,8 @@
 #define MULTIPLAYER_HPP_INCLUDED
 
 #include "GameState.hpp"
-#include "Collision.hpp"
+#include "CollisionPlayerVsBlock.hpp"
+#include "CollisionBulletVsBlock.hpp"
 #include "Movement.hpp"
 #include "Shot.hpp"
 #include <SFML/Network.hpp>

@@ -44,21 +44,28 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="F:/C++ Libs/SFML/include" />
+			<Add directory="F:/SFML/include" />
+			<Add directory="H:/Reli/gott/SFML/include" />
 		</Compiler>
 		<Linker>
 			<Add library="sfml-network" />
 			<Add library="sfml-audio" />
 			<Add directory="F:/C++ Libs/SFML/lib" />
+			<Add directory="F:/SFML/lib" />
+			<Add directory="H:/Reli/gott/SFML/lib" />
 		</Linker>
 		<Unit filename="include/BigFuckingGun.hpp" />
 		<Unit filename="include/Block.hpp" />
 		<Unit filename="include/BlockType.hpp" />
 		<Unit filename="include/Bullet.hpp" />
 		<Unit filename="include/Button.hpp" />
-		<Unit filename="include/Collision.hpp" />
+		<Unit filename="include/CollisionBulletVsBlock.hpp" />
+		<Unit filename="include/CollisionPlayerVsBlock.hpp" />
+		<Unit filename="include/DefaultWeapon.hpp" />
 		<Unit filename="include/Event.hpp" />
 		<Unit filename="include/EventType.hpp" />
 		<Unit filename="include/Game.hpp" />
@@ -69,6 +76,7 @@
 		<Unit filename="include/Menu.hpp" />
 		<Unit filename="include/Movement.hpp" />
 		<Unit filename="include/Multiplayer.hpp" />
+		<Unit filename="include/PacketType.hpp" />
 		<Unit filename="include/Pause.hpp" />
 		<Unit filename="include/Player.hpp" />
 		<Unit filename="include/RocketLauncher.hpp" />
@@ -81,7 +89,9 @@
 		<Unit filename="src/Block.cpp" />
 		<Unit filename="src/Bullet.cpp" />
 		<Unit filename="src/Button.cpp" />
-		<Unit filename="src/Collision.cpp" />
+		<Unit filename="src/CollisionBulletVsBlock.cpp" />
+		<Unit filename="src/CollisionPlayerVsBlock.cpp" />
+		<Unit filename="src/DefaultWeapon.cpp" />
 		<Unit filename="src/Event.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/GameState.cpp" />

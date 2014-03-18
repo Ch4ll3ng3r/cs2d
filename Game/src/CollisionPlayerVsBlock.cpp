@@ -1,17 +1,17 @@
-#include "../include/Collision.hpp"
+#include "../include/CollisionPlayerVsBlock.hpp"
 
-CCollision::CCollision (CPlayer *pPlayer)
-: CEvent (COLLISION)
+CCollisionPlayerVsBlock::CCollisionPlayerVsBlock (CPlayer *pPlayer)
+: CEvent (COLLISION_PLAYER_VS_BLOCK)
 {
     m_pPlayer = pPlayer;
 }
 
-CCollision::~CCollision ()
+CCollisionPlayerVsBlock::~CCollisionPlayerVsBlock ()
 {
     m_pPlayer = nullptr;
 }
 
-void CCollision::Handle ()
+void CCollisionPlayerVsBlock::Handle ()
 {
     if (m_pPlayer->GetCurVelocity () > 0.f)
     {
@@ -24,7 +24,7 @@ void CCollision::Handle ()
     m_pPlayer->ResetRotation ();
 }
 
-void CCollision::Ignore ()
+void CCollisionPlayerVsBlock::Ignore ()
 {
 
 }
