@@ -16,6 +16,9 @@ CGame::CGame ()
     m_pLogfile->Write ("textures loaded");
     LoadFonts ();
     m_pLogfile->Write ("fonts loaded");
+    //LoadSoundBuffers ();
+    //m_pLogfile->Write ("soundbuffers loaded");
+    // disabled, because it produces a SIGSEGV (known SFML bug)
     InitGameStates ();
 
     // Init Time
@@ -84,82 +87,19 @@ CGame::~CGame ()
 
 void CGame::LoadTextures ()
 {
-    pair<string, sf::Texture> texture;
-    sf::Texture _texture;
-    string strPath = "Graphics/block_ground.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_ground", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_obstacle.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_obstacle", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_spawn_t.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_spawn_t", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_spawn_ct.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_spawn_ct", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_bombspot_a.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_bombspot_a", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_bombspot_b.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_bombspot_b", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/block_error.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("block_error", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/Player.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("Player", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/MenuBackground.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("MenuBackground", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/Button.bmp";
-    if (!_texture.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    texture = make_pair ("Button", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/BulletBigFuckingGun.bmp";
-    if (!_texture.loadFromFile (strPath))
-    {
-        cout << "failed to load " << strPath << endl;
-        m_pLogfile->Write ("failed to load " + strPath);
-    }
-    texture = make_pair ("BulletBigFuckingGun", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/BulletRocketLauncher.bmp";
-    if (!_texture.loadFromFile (strPath))
-    {
-        cout << "failed to load " << strPath << endl;
-        m_pLogfile->Write ("failed to load " + strPath);
-    }
-    texture = make_pair ("BulletRocketLauncher", _texture);
-    m_Textures.insert (texture);
-    strPath = "Graphics/BulletShotgun.bmp";
-    if (!_texture.loadFromFile (strPath))
-    {
-        cout << "failed to load " << strPath << endl;
-        m_pLogfile->Write ("failed to load " + strPath);
-    }
-    texture = make_pair ("BulletShotgun", _texture);
-    m_Textures.insert (texture);
+    LoadTexture ("Graphics/block_ground_02.bmp", "block_ground");
+    LoadTexture ("Graphics/block_obstacle_01.bmp", "block_obstacle");
+    LoadTexture ("Graphics/block_spawn_t.bmp", "block_spawn_t");
+    LoadTexture ("Graphics/block_spawn_ct.bmp", "block_spawn_ct");
+    LoadTexture ("Graphics/block_bombspot_a.bmp", "block_bombspot_a");
+    LoadTexture ("Graphics/block_bombspot_b.bmp", "block_bombspot_b");
+    LoadTexture ("Graphics/block_error.bmp", "block_error");
+    LoadTexture ("Graphics/Player.bmp", "Player");
+    LoadTexture ("Graphics/MenuBackground.bmp", "MenuBackground");
+    LoadTexture ("Graphics/Button.bmp", "Button");
+    LoadTexture ("Graphics/BulletBigFuckingGun.bmp", "BulletBigFuckingGun");
+    LoadTexture ("Graphics/BulletShotgun.bmp", "BulletShotgun");
+    LoadTexture ("Graphics/BulletRocketLauncher.bmp", "BulletRocketLauncher");
 }
 
 void CGame::Update ()
@@ -281,39 +221,16 @@ void CGame::ClearTextList ()
 
 void CGame::LoadFonts ()
 {
-    pair<string, sf::Font> font;
-    sf::Font _font;
-    string strPath = "Fonts/arial.ttf";
-    if (!_font.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    font = make_pair ("arial", _font);
-    m_Fonts.insert (font);
-    strPath = "Fonts/ariblk.ttf";
-    if (!_font.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    font = make_pair ("ariblk", _font);
-    m_Fonts.insert (font);
-    strPath = "Fonts/impact.ttf";
-    if (!_font.loadFromFile (strPath))
-        cout << "failed to load " << strPath << endl;
-    font = make_pair ("impact", _font);
-    m_Fonts.insert (font);
+    LoadFont ("Fonts/arial.ttf", "arial");
+    LoadFont ("Fonts/ariblk.ttf", "ariblk");
+    LoadFont ("Fonts/impact.ttf", "impact");
 }
 
 void CGame::LoadSoundBuffers ()
 {
-    pair <string, sf::SoundBuffer> buffer;
-    sf::SoundBuffer _buffer;
-    string strPath = "Sounds/pl_step1.wav";
-    if (!_buffer.loadFromFile (strPath))
-        cout << "failed to load" << strPath << endl;
-    buffer = make_pair ("step", _buffer);
-    m_SoundBuffers.insert (buffer);
-    strPath = "Sounds/ak47-1.wav";
-    if (!_buffer.loadFromFile (strPath))
-        cout << "failed to load" << strPath << endl;
-    buffer = make_pair ("ak", _buffer);
-    m_SoundBuffers.insert (buffer);
+    LoadSoundBuffer ("Sounds/pl_step1.wav", "step");
+    LoadSoundBuffer ("Sounds/ak47-1.wav", "ak");
+    LoadSoundBuffer ("Sounds/m3-1.wav", "shotgun");
 }
 
 void CGame::ReceivePackets ()
@@ -326,4 +243,52 @@ void CGame::SendPackets ()
 {
     if (m_pMultiplayer->ConnectionEstablished ())
         m_pMultiplayer->SendPackets (m_uiNow);
+}
+
+void CGame::LoadTexture (string p_strPath, string p_strDescription)
+{
+    pair<string, sf::Texture> texture;
+    sf::Texture _texture;
+    if (!_texture.loadFromFile (p_strPath))
+    {
+        m_pLogfile->Write ("failed to load" + p_strPath);
+        cout << "failed to load " << p_strPath << endl;
+    }
+    else
+    {
+        texture = make_pair (p_strDescription, _texture);
+        m_Textures.insert (texture);
+    }
+}
+
+void CGame::LoadSoundBuffer (string p_strPath, string p_strDescription)
+{
+    pair<string, sf::SoundBuffer> buffer;
+    sf::SoundBuffer _buffer;
+    if (!_buffer.loadFromFile (p_strPath))
+    {
+        m_pLogfile->Write ("failed to load" + p_strPath);
+        cout << "failed to load " << p_strPath << endl;
+    }
+    else
+    {
+        buffer = make_pair (p_strDescription, _buffer);
+        m_SoundBuffers.insert (buffer);
+    }
+}
+
+void CGame::LoadFont (string p_strPath, string p_strDescription)
+{
+    pair<string, sf::Font> font;
+    sf::Font _font;
+    if (!_font.loadFromFile (p_strPath))
+    {
+        m_pLogfile->Write ("failed to load" + p_strPath);
+        cout << "failed to load " << p_strPath << endl;
+    }
+    else
+    {
+        font = make_pair (p_strDescription, _font);
+        m_Fonts.insert (font);
+    }
 }

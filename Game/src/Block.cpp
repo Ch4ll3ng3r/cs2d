@@ -75,7 +75,7 @@ bool CBlock::CheckCollision (sf::Sprite *p_pSprite, sf::Vector2f p_fPos)
             iNbSteps = p_pSprite->getTextureRect ().height;
         else
             iNbSteps = p_pSprite->getTextureRect ().width;
-        for (int j = 0; j < 60; j++)
+        for (int j = 0; j < iNbSteps; j++)
         {
             p_fPos.x += 1.f * cos (DEG_TO_RAD(fDirection));
             p_fPos.y += 1.f * sin (DEG_TO_RAD(fDirection));

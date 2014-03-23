@@ -181,8 +181,8 @@ void CMultiplayer::ProcessMouseEvents (unsigned int p_uiElapsed, unsigned int p_
 
 void CMultiplayer::CheckCollisions ()
 {
-    bool bCollided = false;
     // player vs block collision
+    bool bCollided = false;
     if (m_pPlayerLocal->RequestsMovement ())
     {
         m_pPlayerLocal->Move ();
@@ -215,7 +215,7 @@ void CMultiplayer::CheckCollisions ()
         }
     }
 
-    // bullet vs block collision
+    // bullet vs block & player collision
     bCollided = false;
     vector<CBullet*>::iterator i;
     for (i = m_vpBullets.begin (); i < m_vpBullets.end (); i++)
@@ -226,10 +226,21 @@ void CMultiplayer::CheckCollisions ()
             {
                 if (m_pMap->GetBlock (j, k)->IsStable ())
                 {
+                    // bullet vs block
                     if (m_pMap->GetBlock (j, k)->CheckCollision ((*i)->GetSprite (), (*i)->GetPos ()))
                         bCollided = true;
                 }
             }
+        }
+
+        // player vs bullet
+        if ((*i)->CheckCollision (m_pPlayerConnected->GetSprite ()->getGlobalBounds ()))
+        {
+            CHit *pHit = nullptr;
+            pHit = new CHit (&m_vpSprites, &m_vpBullets, m_vpSprites.at ((*i)->GetSpriteId ()), (*i), m_pPlayerConnected);
+            m_vpPendingEvents.push_back (pHit);
+            pHit = nullptr;
+            bCollided = false;
         }
 
         // consequences

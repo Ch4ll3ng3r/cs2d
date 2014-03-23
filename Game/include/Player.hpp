@@ -19,10 +19,13 @@ class CPlayer
         void ResetMove ();
         void ResetRotation ();
         void Shoot (unsigned int p_uiNow, vector<sf::Sprite*> *p_vpSprites, vector<CBullet*> *p_vpBullets);
+        void TakeDamage (unsigned int p_uiDamage);
         float GetCurVelocity ();
         float GetViewDirection ();
-        bool CheckCollision (sf::Vector2f fSpot);
+        bool CheckCollision (sf::FloatRect p_fRect);
         bool RequestsMovement ();
+        bool IsAlive ();
+        string GetName ();
         sf::View& GetView ();
         sf::Vector2f GetPos ();
         sf::Sprite* GetSprite ();
@@ -30,6 +33,7 @@ class CPlayer
     private:
         sf::Vector2f m_fPos;
         sf::Vector2f m_fOldPos;
+        sf::Vector2f m_fSize;
         sf::Sprite *m_pSprite;
         sf::View m_View;
         CWeapon *m_pWeapon;
@@ -41,6 +45,7 @@ class CPlayer
         float m_fRotationVelocity;
         float m_fVelocityDecrease;
         float m_fVelocityIncrease;
+        unsigned int m_uiArmor;
         bool m_bRequestsMovement;
         string m_strName;
 };

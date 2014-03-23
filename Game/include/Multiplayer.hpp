@@ -4,6 +4,7 @@
 #include "GameState.hpp"
 #include "CollisionPlayerVsBlock.hpp"
 #include "CollisionBulletVsBlock.hpp"
+#include "Hit.hpp"
 #include "Movement.hpp"
 #include "Shot.hpp"
 #include <SFML/Network.hpp>

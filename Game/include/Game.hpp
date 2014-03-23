@@ -24,6 +24,9 @@ class CGame
         void UpdateGameState ();
         void ClearSpriteList ();
         void ClearTextList ();
+        void LoadTexture (string p_strPath, string p_strDescription);
+        void LoadFont (string p_strPath, string p_strDescription);
+        void LoadSoundBuffer (string p_strPath, string p_strDescription);
         CGameState* GetGameState (EGameStateType GameStateType);
         sf::Clock m_Clock;
         sf::RenderWindow *m_pWindow;

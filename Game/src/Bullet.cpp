@@ -10,7 +10,8 @@ CBullet::CBullet (sf::Sprite *pSprite, float fDirection, float fVelocity, sf::Ve
     m_fVelocity = fVelocity;
     m_fPos = fPos;
     m_fSize = fSize;
-    m_pSprite->setOrigin (0, m_fSize.y);
+    m_pSprite->setTextureRect (sf::IntRect (0, 0, static_cast<int> (m_fSize.x), static_cast<int> (m_fSize.y)));
+    m_pSprite->setOrigin (0, m_fSize.y / 2);
     m_pSprite->setRotation (m_fDirection);
     m_pSprite->setPosition (m_fPos);
     m_uiDamage = uiDamage;
@@ -39,9 +40,9 @@ sf::Vector2f CBullet::GetSize ()
     return m_fSize;
 }
 
-bool CBullet::CheckCollision (sf::Vector2<float> fSpot)
+bool CBullet::CheckCollision (sf::FloatRect p_fRect)
 {
-    return false;
+    return m_pSprite->getGlobalBounds ().intersects (p_fRect);
 }
 
 unsigned int CBullet::GetDamage ()

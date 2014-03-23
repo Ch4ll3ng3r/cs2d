@@ -4,6 +4,7 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
 {
     m_fPos = fPos;
     m_fOldPos = sf::Vector2f (0.f, 0.f);
+    m_fSize = sf::Vector2f (60.f, 60.f);
     m_fViewDirection = 0.f;
     m_fOldViewDirection = 0.f;
     m_fMovementDirection = 0.f;
@@ -12,6 +13,7 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
     m_fVelocityIncrease = 0.02f;
     m_fVelocityDecrease = m_fVelocityIncrease / 2;
     m_fRotationVelocity = 0.01f;
+    m_uiArmor = 200;
     m_bRequestsMovement = false;
     m_pSprite = nullptr;
     m_pSprite = pSprite;
@@ -20,7 +22,8 @@ CPlayer::CPlayer (sf::Sprite *pSprite, sf::Vector2f fPos, sf::Vector2f fViewSize
     m_strName = "Horst";
     m_View.setCenter (m_fPos);
     m_View.setSize (fViewSize);
-    m_pSprite->setOrigin (30.f, 30.f);
+    m_pSprite->setTextureRect (sf::IntRect (0, 0, static_cast<int> (m_fSize.x), static_cast<int> (m_fSize.y)));
+    m_pSprite->setOrigin (m_fSize.x / 2, m_fSize.y / 2);
     m_pSprite->setPosition (m_View.getCenter ());
     m_pSprite->setRotation (m_fViewDirection);
 }
@@ -114,31 +117,9 @@ void CPlayer::ResetRotation ()
     m_pSprite->setRotation (m_fViewDirection);
 }
 
-bool CPlayer::CheckCollision (sf::Vector2f fSpot)
+bool CPlayer::CheckCollision (sf::FloatRect p_fRect)
 {
-    // preparing collision check
-    sf::Vector2f fPos = m_fPos;
-    float fDirection = m_fViewDirection;
-    fDirection -= 90.f;
-    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-    fDirection += 90.f;
-    fPos.x += 30.f * cos (DEG_TO_RAD(fDirection));
-    fPos.y += 30.f * sin (DEG_TO_RAD(fDirection));
-
-    // check collision
-    for (int i = 0; i < 4; i++)
-    {
-        fDirection += 90.f;
-        for (int j = 0; j < 60; j++)
-        {
-            fPos.x += 1.f * cos (DEG_TO_RAD(fDirection));
-            fPos.y += 1.f * sin (DEG_TO_RAD(fDirection));
-            if (fPos == fSpot)
-                return true;
-        }
-    }
-    return false;
+    return m_pSprite->getGlobalBounds ().intersects (p_fRect);
 }
 
 bool CPlayer::RequestsMovement ()
@@ -167,7 +148,10 @@ void CPlayer::Shoot (unsigned int p_uiNow, vector<sf::Sprite*> *p_vpSprites, vec
 {
     if (m_pWeapon->IsShotAvailable (p_uiNow))
     {
-        m_pWeapon->SetPos (m_fPos);
+        sf::Vector2f fPos = m_fPos;
+        fPos.x += m_fSize.x / 2 * cos (DEG_TO_RAD(m_fViewDirection));
+        fPos.y += m_fSize.y / 2 * sin (DEG_TO_RAD(m_fViewDirection));
+        m_pWeapon->SetPos (fPos);
         m_pWeapon->Shoot (p_vpBullets, p_vpSprites, m_fViewDirection, m_strName);
     }
 }
@@ -175,4 +159,22 @@ void CPlayer::Shoot (unsigned int p_uiNow, vector<sf::Sprite*> *p_vpSprites, vec
 sf::Sprite* CPlayer::GetSprite ()
 {
     return m_pSprite;
+}
+
+string CPlayer::GetName ()
+{
+    return m_strName;
+}
+
+void CPlayer::TakeDamage (unsigned int p_uiDamage)
+{
+    if (p_uiDamage > m_uiArmor)
+        m_uiArmor = 0;
+    else
+        m_uiArmor -= p_uiDamage;
+}
+
+bool CPlayer::IsAlive ()
+{
+    return m_uiArmor != 0;
 }

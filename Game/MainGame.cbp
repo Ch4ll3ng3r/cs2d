@@ -48,14 +48,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="F:/C++ Libs/SFML/include" />
-			<Add directory="F:/SFML/include" />
 			<Add directory="H:/Reli/gott/SFML/include" />
 		</Compiler>
 		<Linker>
 			<Add library="sfml-network" />
 			<Add library="sfml-audio" />
 			<Add directory="F:/C++ Libs/SFML/lib" />
-			<Add directory="F:/SFML/lib" />
 			<Add directory="H:/Reli/gott/SFML/lib" />
 		</Linker>
 		<Unit filename="include/BigFuckingGun.hpp" />
@@ -71,6 +69,7 @@
 		<Unit filename="include/Game.hpp" />
 		<Unit filename="include/GameState.hpp" />
 		<Unit filename="include/GameStateType.hpp" />
+		<Unit filename="include/Hit.hpp" />
 		<Unit filename="include/Logfile.hpp" />
 		<Unit filename="include/Map.hpp" />
 		<Unit filename="include/Menu.hpp" />
@@ -95,6 +94,7 @@
 		<Unit filename="src/Event.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/GameState.cpp" />
+		<Unit filename="src/Hit.cpp" />
 		<Unit filename="src/Logfile.cpp" />
 		<Unit filename="src/Map.cpp" />
 		<Unit filename="src/Menu.cpp" />

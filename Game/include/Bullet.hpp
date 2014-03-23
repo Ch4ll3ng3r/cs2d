@@ -22,7 +22,7 @@ class CBullet
         sf::Vector2f GetSize ();
         sf::Sprite* GetSprite ();
         string GetShootersName ();
-        bool CheckCollision (sf::Vector2f fSpot);
+        bool CheckCollision (sf::FloatRect p_fRect);
         unsigned int GetDamage ();
         unsigned int GetSpriteId ();
 
